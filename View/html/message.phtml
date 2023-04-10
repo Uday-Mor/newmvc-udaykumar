@@ -1,0 +1,13 @@
+<?php
+$messageModel = new Model_Core_Message();
+$messages = $messageModel->getMessages();
+$messageModel->clearMessages();
+foreach ($messages as $type => $message) :
+?>
+<!-- <h4></h4> -->
+<div class="alert alert-primary" role="alert">
+  <?php echo $message; ?>
+</div>
+<?php
+endforeach;
+?>

@@ -1,0 +1,41 @@
+<?php $attributes = $this->prepareData()->getData();?>
+<div class="head_container">
+	<h2 class="salesman_heading">Manage Attributes</h2>
+	<a class="add_salesman_link" href=<?php echo $this->getUrl('add',null,null,true); ?>>ADD Attribute</a>
+</div>
+<div class="tabel_container">
+	<table>
+			<tr>
+				<th>Attribute Id</th>
+				<th>Entity Type Id</th>
+				<th>Code</th>
+				<th>Backend Type</th>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Backend Model</th>
+				<th>Input Type</th>
+				<th>EDIT</th>
+				<th>DELETE</th>
+			</tr>
+			<?php if (!$attributes) : ?>
+			<tr>
+				<td>No record Found!!!</td>
+			</tr>
+			<?php else: ?>
+			<?php foreach ($attributes as $attribute) : ?>
+			<tr>
+				<th><?php echo $attribute->attribute_id; ?></th>
+				<th><?php echo $attribute->entity_type_id; ?></th>
+				<th><?php echo $attribute->code; ?></th>
+				<th><?php echo $attribute->backend_type; ?></th>
+				<th><?php echo $attribute->name; ?></th>
+				<th><?php echo $attribute->getStatusText(); ?></th>
+				<th><?php echo $attribute->backend_model; ?></th>
+				<th><?php echo $attribute->input_type; ?></th>
+				<td><a href=<?php echo $this->getUrl('edit',null,['attribute_id'=>$attribute->attribute_id],true); ?>>Edit</a></td>
+				<td><a href=<?php echo $this->getUrl('delete',null,['attribute_id'=>$attribute->attribute_id],true); ?>>Delete</a></td>
+				</tr>
+			<?php endforeach; ?>
+			<?php endif; ?>
+	</table>
+</div>

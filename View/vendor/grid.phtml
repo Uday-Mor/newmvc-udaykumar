@@ -1,0 +1,45 @@
+<?php $vendors = $this->prepareData();?>
+<table>
+	<tr>
+		<th colspan="8">Manage Vendors</th>
+		<th colspan="4"><a href="<?php echo $this->getUrl('add'); ?>">Add Vendor</a></th>
+	</tr>
+	<tr>
+		<td>Vendor Id</td>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>E-mail</td>
+		<td>Mobile</td>
+		<td>Gender</td>
+		<td>Status</td>
+		<td>Company</td>
+		<td>Created At</td>
+		<td>Updated At</td>
+		<td>Show Address</td>
+		<td>EDIT</td>
+		<td>DELETE</td>
+	</tr>
+	<?php if (!$vendors->getData()) : ?>
+	<tr>
+		<td colspan="12">No Record Found</td>
+	</tr>
+	<?php else:?>
+	<?php foreach ($vendors->getData() as $vendor) : ?>
+	<tr>
+		<td><?php echo $vendor->vendor_id; ?></td>
+		<td><?php echo $vendor->first_name; ?></td>
+		<td><?php echo $vendor->last_name; ?></td>
+		<td><?php echo $vendor->email; ?></td>
+		<td><?php echo $vendor->mobile; ?></td>
+		<td><?php echo $vendor->gender; ?></td>
+		<td><?php echo $vendor->getStatusText(); ?></td>
+		<td><?php echo $vendor->company; ?></td>
+		<td><?php echo $vendor->created_at; ?></td>
+		<td><?php echo $vendor->updated_at; ?></td>
+		<td><a href="<?php echo $this->getUrl('address',null,['vendor_id'=>$vendor->vendor_id]); ?>">Show Address</a></td>
+		<td><a href="<?php echo $this->getUrl('edit',null,['vendor_id'=>$vendor->vendor_id]); ?>">EDIT</a></td>
+		<td><a href="<?php echo $this->getUrl('delete',null,['vendor_id'=>$vendor->vendor_id]); ?>">DELETE</a></td>
+	</tr>
+	<?php endforeach; ?>
+	<?php endif; ?>
+</table>
