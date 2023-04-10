@@ -1,0 +1,67 @@
+<?php $images = $this->prepareData();?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="skin/css/media_style.css">
+	<title></title>
+</head>
+<body>
+	<form method="POST" action=<?php echo $this->getUrl('save',null,null); ?>>
+		<div class="image_container">
+			<h2>Product Image Table</h2>
+			<a href=<?php echo $this->getUrl('add',null,null); ?>>Add Image</a>
+			<input type="submit" value="Save">
+		</div>
+		<div>
+			<table>
+				<tr>
+					<th>Image id</th>
+					<th>Product id</th>
+					<th>Name</th>
+					<th>Image</th>
+					<th>Created At</th>	
+					<th>Base</th>
+					<th>Thumnail</th>
+					<th>Small</th>
+					<th>Gallary</th>
+					<th>File name</th>
+					<th>Delete</th>
+				</tr>
+				<?php if (!$images->getData()) : ?>
+				<tr>
+					<td colspan="12">No Record Found</td>
+				</tr>
+				<?php else: ?>
+				<?php foreach ($images->getData() as $image) :?>
+				<tr>
+					<td><?php echo $image->image_id; ?></td>
+					<td><?php echo $_GET["product_id"];?></td>
+					<td><?php echo $image->name; ?></td>
+					<td><img src="View/product/media/Images/<?php echo $image->file_name; ?>" width="50px" height="50px" alt="Italian Trulli"><img /></td>
+					<td><?php echo $image->created_at; ?></td>
+					<td>
+						<input type="radio" name="base" value=<?php echo $image->image_id;?> <?php if($image->base !== '0'){echo "checked";} ?>>
+					</td>
+					<td>
+						<input type="radio" name="thumnail" value=<?php echo $image->image_id;?> <?php if($image->thumnail !== '0'){echo "checked";} ?>>
+					</td>
+					<td>
+						<input type="radio" name="small" value=<?php echo $image->image_id;?> <?php if($image->small !== '0'){echo "checked";} ?>>
+					</td>
+					<td>
+						<input type="checkbox" name="gallary[]" value=<?php echo $image->image_id;?> <?php if($image->gallary !== '0'){echo "checked";} ?>>
+					</td>
+					<td><?php echo $image->file_name; ?></td>
+					<td>
+						<a href=<?php echo $this->getUrl('delete',null,['image_id'=>$image->image_id]); ?>>Delete</a>
+					</td>
+				</tr>
+				<?php endforeach;?>
+				<?php endif; ?>
+			</table>
+		</div>
+	</form>
+</body>
+</html>

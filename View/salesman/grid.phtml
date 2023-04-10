@@ -1,0 +1,49 @@
+<?php $salesmen = $this->prepareData();?>
+<div class="head_container">
+	<h2 class="salesman_heading">MANAGE SALESMEN</h2>
+	<a class="add_salesman_link" href=<?php echo $this->getUrl('add',null,null,true); ?>>ADD SALESMAN</a>
+</div>
+<div class="tabel_container">
+	<table>
+			<tr>
+				<th>Salesman ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>E-mail</th>
+				<th>Mobile</th>
+				<th>Gender</th>
+				<th>Status</th>
+				<th>Company</th>
+				<th>Created At</th>
+				<th>Updated At</th>
+				<th>Price</th>
+				<th>Address</th>
+				<th>EDIT</th>
+				<th>DELETE</th>
+			</tr>
+			<?php if (!$salesmen->getData()) : ?>
+			<tr>
+				<td>No record Found!!!</td>
+			</tr>
+			<?php else: ?>
+			<?php foreach ($salesmen->getData() as $salesman) : ?>
+		<tr>
+			<td><?php echo $salesman->salesman_id; ?></td>
+			<td><?php echo $salesman->first_name; ?></td>
+			<td><?php echo $salesman->last_name; ?></td>
+			<td><?php echo $salesman->email; ?></td>
+			<td><?php echo $salesman->mobile; ?></td>
+			<td><?php echo $salesman->gender; ?></td>
+			<td><?php echo $salesman->getStatusText(); ?></td>
+            <td><?php echo $salesman->company; ?></td>
+			<td><?php echo $salesman->created_at; ?></td>
+			<td><?php echo $salesman->updated_at; ?></td>
+			<td><a href=<?php echo $this->getUrl('grid','salesman_price',['salesman_id'=>$salesman->salesman_id],true) ?>>Show Prices</a></td>
+			<td><a href=<?php echo $this->getUrl('address',null,['salesman_id'=>$salesman->salesman_id],true) ?>>Show Address</a></td>
+			<td><a href=<?php echo $this->getUrl('edit',null,['salesman_id'=>$salesman->salesman_id],true) ?>>Edit</a></td>
+			<td><a href=<?php echo $this->getUrl('delete',null,['salesman_id'=>$salesman->salesman_id],true) ?>>Delete</a></td>
+		</tr>
+		<?php endforeach; ?>
+			<?php endif; ?>
+	</table>
+</div>

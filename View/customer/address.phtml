@@ -1,0 +1,36 @@
+<?php
+$address = $this->getData('address');
+?>
+<form>
+	<div class="head_container">
+		<h2 class="edit_heading">CUSTOMER ADDRESS</h2>
+		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
+	</div>
+	<div class="tabel_container">
+		<table>
+			<tr>
+				<th>CUSTOMER ADDRESS INFORMATION</th>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td><?php echo $address->address; ?></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td><?php echo $address->city; ?></td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td><?php echo $address->state; ?></td>
+			</tr>
+			<tr>
+				<td>Country</td>
+				<td><?php echo $address->country; ?></td>
+			</tr>
+			<tr>
+				<td>ZIP Code</td>
+				<td><?php echo $address->zip_code; ?></td>
+			</tr>
+		</table>
+	</div>
+</form>
