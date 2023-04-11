@@ -55,6 +55,10 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 				$this->errorAction('Data is not posted !!!');
 			}
 
+			if ($postData['input_type'] == 'text' || $postData['input_type'] == 'textBox') {
+				unset($postData['option']);
+			}
+
 			$existingOptions = null;
 			$newOptions = null;
 			if (array_key_exists('option',$postData)) {
@@ -83,6 +87,13 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 				$attributeId = $attribute->attribute_id;
 			}else{
 				$attributeId = $insertId;
+			}
+
+			if ($postData['input_type'] == 'text' || $postData['input_type'] == 'textBox') {
+				$query = 'DELETE FROM `eav_attribute_option` WHERE `attribute_id` = "'.$attributeId.'"';
+				if (!($result = Ccc::getModel('Core_Adapter')->delete($query))) {
+					$this->errorAction('Failed to delete option Data');
+				}
 			}
 
 			$where = '';
