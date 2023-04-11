@@ -72,9 +72,9 @@ class Controller_Payment extends Controller_Core_Action
 			}
 
 			if ($payment->payment_id) {
-				$payment->updated_at = date();
+				$payment->updated_at = date("Y-m-d h:i:sa");
 			}else{
-				$payment->created_at = date();
+				$payment->created_at = date("Y-m-d h:i:sa");
 			}
 
 			$payment->setData($postData);
