@@ -1,8 +1,9 @@
 <?php 
 $customer = $this->getData('customer');
-$address = $this->getData('address');
+$billingAddress = $this->getData('billing_address');
+$shippingAddress = $this->getData('shipping_address');
 ?>
-<form method="POST" action=<?php echo $this->getUrl('save',null,['customer_id'=>$customer->customer_id,'address_id'=>$address->address_id],true); ?>>
+<form method="POST" action=<?php echo $this->getUrl('save',null,['customer_id'=>$customer->customer_id],true); ?>>
 	<div class="head_container">
 		<h2 class="edit_heading">Customer Data</h2>
 		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
@@ -11,7 +12,7 @@ $address = $this->getData('address');
 	<div class="tabel_container">
 		<table>
 			<tr>
-				<th>CUSTOMER INFORMATION</th>
+				<th colspan="2">CUSTOMER INFORMATION</th>
 			</tr>
 			<tr>
 				<td>First Name</td>
@@ -49,24 +50,51 @@ $address = $this->getData('address');
 				</td>
 			</tr>
 			<tr>
+				<th colspan="2">Billing Address</th>
+			</tr>
+			<tr>
 				<td>Address</td>
-				<td><textarea name="address[address]"><?php echo $address->address; ?></textarea></td>
+				<td><textarea name="address[billing_address][address]"><?php echo $billingAddress->address; ?></textarea></td>
 			</tr>
 			<tr>
 				<td>City</td>
-				<td><input type="text" name="address[city]" value=<?php echo $address->city; ?>></textarea></td>
+				<td><input type="text" name="address[billing_address][city]" value=<?php echo $billingAddress->city; ?>></textarea></td>
 			</tr>
 			<tr>
 				<td>State</td>
-				<td><input type="text" name="address[state]" value=<?php echo $address->state; ?>></textarea></td>
+				<td><input type="text" name="address[billing_address][state]" value=<?php echo $billingAddress->state; ?>></textarea></td>
 			</tr>
 			<tr>
 				<td>Country</td>
-				<td><input type="text" name="address[country]" value=<?php echo $address->country; ?>></textarea></td>
+				<td><input type="text" name="address[billing_address][country]" value=<?php echo $billingAddress->country; ?>></textarea></td>
 			</tr>
 			<tr>
 				<td>ZIP Code</td>
-				<td><input type="number" name="address[zip_code]" value=<?php echo $address->zip_code; ?>></textarea></td>
+				<td><input type="number" name="address[billing_address][zip_code]" value=<?php echo $billingAddress->zip_code; ?>></textarea></td>
+			</tr>
+
+			<tr>
+				<th colspan="2">Shipping Address</th>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td><textarea name="address[shipping_address][address]"><?php echo $shippingAddress->address; ?></textarea></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td><input type="text" name="address[shipping_address][city]" value=<?php echo $shippingAddress->city; ?>></textarea></td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td><input type="text" name="address[shipping_address][state]" value=<?php echo $shippingAddress->state; ?>></textarea></td>
+			</tr>
+			<tr>
+				<td>Country</td>
+				<td><input type="text" name="address[shipping_address][country]" value=<?php echo $shippingAddress->country; ?>></textarea></td>
+			</tr>
+			<tr>
+				<td>ZIP Code</td>
+				<td><input type="number" name="address[shipping_address][zip_code]" value=<?php echo $shippingAddress->zip_code; ?>></textarea></td>
 			</tr>
 		</table>
 	</div>

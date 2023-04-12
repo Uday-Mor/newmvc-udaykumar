@@ -39,13 +39,21 @@ class Controller_Customer extends Controller_Core_Action
 				$this->errorAction('Invalid request!!!');
 			}
 
-			if (!($customer = Ccc::getModel('Customer')->load($customerId)) || !($address = Ccc::getModel('Customer_Address')->load($customerId,'customer_address_id'))) {
+			if (!($customer = Ccc::getModel('Customer')->load($customerId))) {
 				$this->errorAction('Data not found!!!');
+			}
+
+			if (!($billingAddress = $customer->getBillingaddress())) {
+				$billingAddress = Ccc::getModel('Customer_Address');
+			}
+
+			if (!($shippingaddress = $customer->getShippingAddress())) {
+				$shippingaddress = Ccc::getModel('Customer_Address');
 			}
 
 			$layout = $this->getLayout();
 			$edit = $layout->creatBlock('Customer_Edit');
-			$edit->setData(['customer'=>$customer,'address'=>$address]);
+			$edit->setData(['customer'=>$customer,'billing_address'=>$billingAddress,'shipping_address'=>$shippingaddress]);
 			$layout->getChild('content')->addChild('grid',$edit);
 			$layout->render();
 		} catch (Exception $e) {
@@ -70,30 +78,55 @@ class Controller_Customer extends Controller_Core_Action
 			}
 
 			$customer = Ccc::getModel('Customer');
-			$address = Ccc::getModel('Customer_Address');
-			if ($customerId = $this->getRequest()->getParams('customer_id')) {
-				if (!($customer = $customer->load($customerId)) || !($address = $address->load($customerId,'customer_address_id'))) {
+			if ($customerId = (int) $this->getRequest()->getParams('customer_id')) {
+				if (!($customer = $customer->load($customerId))) {
 					$this->errorAction('Failed to fetch data!!!');
 				}
 			}
 
-			if ($customer->customer_id) {
-				$customer->updated_at = date("Y-m-d h:i:sa");
+			if (!($billingAddress = $customer->getBillingaddress())) {
+				$billingAddress = Ccc::getModel('Customer_Address');
+			}
+
+			if (!($shippingAddress = $customer->getShippingAddress())) {
+				$shippingAddress = Ccc::getModel('Customer_Address');
+			}
+
+			unset($customer->billing_address_id);
+			unset($customer->shipping_address_id);
+			if ($customer->getId()) {
+				$customer->updated_at = date("Y-m-d h:i:s");
 			}else{
-				$customer->created_at = date("Y-m-d h:i:sa");
+				$customer->created_at = date("Y-m-d h:i:s");
 			}
 
 			$customer->setData($customerData);
+
 			if (!($insertId = $customer->save())) {
 				$this->errorAction('Failed to save Data!!!');
 			}
 
-			if (!$address->address_id) {
-				$address->customer_address_id = $insertId;
+			if (!$customer->getId()) {
+				$customer->customer_id = $insertId;
 			}
 
-			$address->setData($addressData);
-			if (!$address->save()) {
+			$billingAddress->customer_address_id = $customer->getId();
+			$shippingAddress->customer_address_id = $customer->getId();
+			$billingAddress->setData($addressData['billing_address']);
+			$shippingAddress->setData($addressData['shipping_address']);
+			if (!($billingAddressId = $billingAddress->save()) || !($shippingAddressId = $shippingAddress->save())) {
+				$this->errorAction('Failed to save Data!!!');
+			}
+
+			if (!$billingAddress->address_id) {
+				$customer->billing_address_id = $billingAddressId;
+			}
+
+			if (!$shippingAddress->address_id) {
+				$customer->shipping_address_id = $shippingAddressId;
+			}
+
+			if (!$customer->save()) {
 				$this->errorAction('Failed to save Data!!!');
 			}
 
@@ -113,8 +146,8 @@ class Controller_Customer extends Controller_Core_Action
 			}
 
 			
-			if (($customer = Ccc::getModel('Customer')->load($customerId)) && ($address = Ccc::getModel('Customer_Address')->load($customerId,'customer_address_id'))) {
-				if (!$customer->delete() || $address->delete()) {
+			if (($customer = Ccc::getModel('Customer')->load($customerId))) {
+				if (!$customer->delete()) {
 					$this->errorAction('Failed to delete data!!!');
 				}
 			}

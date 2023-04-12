@@ -1,4 +1,4 @@
-<?php $images = $this->prepareData();?>
+<?php $product = $this->getProduct();?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,26 +29,26 @@
 					<th>File name</th>
 					<th>Delete</th>
 				</tr>
-				<?php if (!$images->getData()) : ?>
+				<?php if (!$product->getImages()) : ?>
 				<tr>
 					<td colspan="12">No Record Found</td>
 				</tr>
 				<?php else: ?>
-				<?php foreach ($images->getData() as $image) :?>
+				<?php foreach ($product->getImages()->getData() as $image) :?>
 				<tr>
 					<td><?php echo $image->image_id; ?></td>
-					<td><?php echo $_GET["product_id"];?></td>
+					<td><?php echo $image->product_id;?></td>
 					<td><?php echo $image->name; ?></td>
 					<td><img src="View/product/media/Images/<?php echo $image->file_name; ?>" width="50px" height="50px" alt="Italian Trulli"><img /></td>
 					<td><?php echo $image->created_at; ?></td>
 					<td>
-						<input type="radio" name="base" value=<?php echo $image->image_id;?> <?php if($image->base !== '0'){echo "checked";} ?>>
+						<input type="radio" name="base" value=<?php echo $image->image_id;?> <?php if($image->image_id == $product->getBase()){echo "checked";} ?>>
 					</td>
 					<td>
-						<input type="radio" name="thumnail" value=<?php echo $image->image_id;?> <?php if($image->thumnail !== '0'){echo "checked";} ?>>
+						<input type="radio" name="thumnail" value=<?php echo $image->image_id;?> <?php if($image->image_id == $product->getThumnail()){echo "checked";} ?>>
 					</td>
 					<td>
-						<input type="radio" name="small" value=<?php echo $image->image_id;?> <?php if($image->small !== '0'){echo "checked";} ?>>
+						<input type="radio" name="small" value=<?php echo $image->image_id;?> <?php if($image->image_id == $product->getSmall()){echo "checked";} ?>>
 					</td>
 					<td>
 						<input type="checkbox" name="gallary[]" value=<?php echo $image->image_id;?> <?php if($image->gallary !== '0'){echo "checked";} ?>>
