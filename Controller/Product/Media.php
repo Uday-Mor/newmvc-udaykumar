@@ -46,7 +46,7 @@ class Controller_Product_Media extends Controller_Core_Action
 			$insertedId = $rowModel->save();
 
 			// upload file into folder
-			$target_dir = "View/product_media/Images/";
+			$target_dir = "View/product/media/Images/";
 			$extension = explode('.',$_FILES["image"]["name"]);
 			$fileName = $insertedId.'.'.$extension[1];
 			$target_file = $target_dir . $fileName;
@@ -72,55 +72,48 @@ class Controller_Product_Media extends Controller_Core_Action
 		try {
 			$request = $this->getRequest();
 			$productId = $request->getParams('product_id');
-			$imageId = $request->getParams('image_id');
 			if (!$productId) {
 				$this->errorAction('Invalid Request !!');
 			}
 
-			if ($request->isPost()) {
-				$rowModel = Ccc::getModel('Product_Media')->setData(['base'=>0,'thumnail'=>0,'small'=>0,'gallary'=>0]);
-				$rowModel->image_id = $imageId;
-				$result = $rowModel->save(['product_id'=>$productId]);
-				$data = $request->getPost();
-				if (array_key_exists('base',$data)) {
-					$base = Ccc::getModel('Product_Media');
-					$base->setData(['base'=>1]);
-					$base->image_id = $data["base"];
-					$result = $base->save();
-				}
+			if (!($product = Ccc::getModel('Product')->load($productId))) {
+				$this->errorAction('Product data not found !!!');
+			}
 
-				if (array_key_exists('thumnail',$data)) {	
-					$thumnail = Ccc::getModel('Product_Media');
-					$thumnail->setData(['thumnail'=>1]);
-					$thumnail->image_id = $data["thumnail"];
-					$result = $thumnail->save();
-				}
+			if (!$request->isPost()) {
+				$this->errorAction('Invalid request !!!');
+			}
 
-				if (array_key_exists('small',$data)) {
-					$small = Ccc::getModel('Product_Media');
-					$small->setData(['small'=>1]);
-					$small->image_id = $data["small"];
-					$result = $small->save();
-					if (!$result) {
-						$this->errorAction('failed to save data !!!');
-					}
-				}	
+			$data = $request->getPost();
+			if (array_key_exists('base',$data)) {
+				$product->base = $data["base"];
+			}
 
-				if (array_key_exists('gallary',$data)) {
-					$condition = $data["gallary"];
-					$gallary = Ccc::getModel('Product_Media');
-					$gallary->setData(['gallary'=>1]);
-					$gallary->image_id = $imageId;
-					$result = $gallary->save($condition);
-				}
+			if (array_key_exists('thumnail',$data)) {	
+				$product->thumnail = $data["thumnail"];
+			}
 
+			if (array_key_exists('small',$data)) {
+				$product->small = $data["small"];
+			}	
+
+			if (!($product->save())) {
+				$this->errorAction('failed to save data !!!');
+			}
+
+			if (array_key_exists('gallary',$data)) {
+				$condition = $data["gallary"];
+				$gallary = Ccc::getModel('Product_Media');
+				$gallary->setData(['gallary'=>1]);
+				$gallary->image_id = $imageId;
+				$result = $gallary->save($condition);
 				if (!$result) {
 					$this->errorAction('failed to save data !!!');
 				}
-				$this->getMessage()->addMessage('Data Saved Successfully..!!');
-				$this->redirect('grid',null,null);
 			}
-			$this->errorAction('Invalid request !!!');
+
+			$this->getMessage()->addMessage('Data Saved Successfully..!!');
+			$this->redirect('grid',null,null);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getmessage(),'failure');
 			$this->redirect('grid',null,null,true);

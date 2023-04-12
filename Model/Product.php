@@ -23,4 +23,26 @@ class Model_Product extends Model_Core_Table
 		}
 		return Model_Product_Resource::STATUS_DEFAULT;
 	}
+
+	public function getImages()
+    {
+        $query = 'SELECT * FROM `product_media` WHERE `product_id` = "'.$this->product_id.'"';
+        $images = Ccc::getModel('Product_Media')->fetchAll($query);
+        return $images;
+    }
+
+    public function getBase()
+    {
+    	return $this->base;
+    }
+
+    public function getThumnail()
+    {
+    	return $this->thumnail;
+    }
+
+    public function getSmall()
+    {
+    	return $this->small;
+    }
 }

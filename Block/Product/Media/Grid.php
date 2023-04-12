@@ -10,12 +10,11 @@ class Block_Product_Media_Grid extends Block_Core_Templates
 		$this->setTemplate('product/media/grid.phtml');
 	}
 
-	public function prepareData()
+	public function getProduct()
 	{
 		$productId = Ccc::getModel('Core_Request')->getParams('product_id');
-		$query = 'SELECT * FROM `product_media` WHERE `product_id` = "'.$productId.'"';
-		$rowModel = Ccc::getModel('Product_Media');
-		$images = $rowModel->fetchAll($query);
-		return $images;
+		// $query = 'SELECT * FROM `product` WHERE `product_id` = "'.$productId.'"';
+		$product = Ccc::getModel('Product')->load($productId);
+		return $product;
 	}
 }
