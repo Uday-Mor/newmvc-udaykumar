@@ -1,4 +1,4 @@
-<?php $product = $this->getProduct();?>
+<?php $product = $this->getCollection();?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +29,12 @@
 					<th>File name</th>
 					<th>Delete</th>
 				</tr>
-				<?php if (!$product->getImages()) : ?>
+				<?php if (!$product) : ?>
 				<tr>
 					<td colspan="12">No Record Found</td>
 				</tr>
 				<?php else: ?>
-				<?php foreach ($product->getImages()->getData() as $image) :?>
+				<?php foreach ($product->getData() as $image) :?>
 				<tr>
 					<td><?php echo $image->image_id; ?></td>
 					<td><?php echo $image->product_id;?></td>

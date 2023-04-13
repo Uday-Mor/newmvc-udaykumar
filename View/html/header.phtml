@@ -2,12 +2,38 @@
 $url = new Model_Core_Url();
 ?>
 <header>
-	<a href=<?php echo $url->getUrl('grid','product'); ?>>Product</a>
-	<a href=<?php echo $url->getUrl('grid','category'); ?>>Category</a>
-	<a href=<?php echo $url->getUrl('grid','customer'); ?>>Customer</a>
-	<a href=<?php echo $url->getUrl('grid','vendor'); ?>>Vendor</a>
-	<a href=<?php echo $url->getUrl('grid','salesman'); ?>>Salesman</a>
-	<a href=<?php echo $url->getUrl('grid','shipping'); ?>>Shipping Method</a>
-	<a href=<?php echo $url->getUrl('grid','payment'); ?>>Payment Method</a>
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">MVC</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','product'); ?>">Product</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','category'); ?>">Category</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','customer'); ?>">Customer</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','vendor'); ?>">Vendor</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','salesman'); ?>">Salesman</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','shipping'); ?>">Shipping Method</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="<?php echo $url->getUrl('grid','payment'); ?>">Payment Method</a>
+        </li>
+    </div>
+  </div>
+</nav>
+
 </header>
 <?php require_once 'message.phtml';?>
