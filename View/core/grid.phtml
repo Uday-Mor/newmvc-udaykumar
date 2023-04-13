@@ -1,0 +1,35 @@
+<?php 
+$rows = $this->getCollection();
+?>
+<table class="table table-bordered border-primary ">
+	<tr>
+		<th><?php echo $this->getTitle(); ?></th>
+		<?php foreach ($this->getButtons() as $key => $button) : ?>
+		<th><a href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a></th>
+		<?php endforeach; ?>
+	</tr>
+	<tr>
+		<?php foreach ($this->getColumns() as $key => $column) : ?>
+		<th><?php echo $column['title']; ?></th>		
+		<?php endforeach; ?>
+		<?php foreach ($this->getActions() as $key => $action) : ?>
+		<th><?php echo $action['title']; ?></th>		
+		<?php endforeach; ?>
+	</tr>
+	<?php if (!$rows->getData()) : ?>
+	<tr>
+		<td>No record Found!!!</td>
+	</tr>
+	<?php else: ?>
+	<?php foreach ($rows->getData() as $row) : ?>
+	<tr>
+		<?php foreach ($this->getColumns() as $key => $column) : ?>
+		<td><?php echo $this->getColumnValue($key,$row); ?></td>		
+		<?php endforeach; ?>
+		<?php foreach ($this->getActions() as $key => $action) : ?>
+		<td><a href="<?php $method = $action['method']; echo $this->$method($row); ?>"><?php echo $action['title']; ?></a></td>
+		<?php endforeach; ?>
+	</tr>
+	<?php endforeach; ?>
+	<?php endif; ?>
+</table>

@@ -3,12 +3,12 @@
 <div>
 	<?php require_once 'View/html/header.phtml'; ?>
 </div>
-<div class="head_container">
+<div >
 	<h2 class="customer_heading">MANAGE CUSTOMERS</h2>
 	<a class="add_customer_link" href=<?php echo $this->getUrl('add',null,null,true); ?>>ADD CUSTOMER</a>
 </div>
 <div class="tabel_container">
-	<table>
+	<table class="table table-dark table-striped-columns">
 		<tr>
 			<th>Customer ID</th>
 			<th>First Name</th>
