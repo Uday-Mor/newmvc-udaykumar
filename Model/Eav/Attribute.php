@@ -23,4 +23,11 @@ class Model_Eav_Attribute extends Model_Core_Table
 		}
 		return Model_Eav_Attribute_Resource::STATUS_DEFAULT;
 	}
+
+	public function getOptions()
+	{
+		$query = "SELECT * FROM `eav_attribute_option` WHERE `attribute_id` = '{$this->getId()}'";
+		$options = Ccc::getModel('Eav_Attribute_Option')->fetchAll($query);
+		return $options->getData();
+	}
 }

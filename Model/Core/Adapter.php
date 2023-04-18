@@ -16,12 +16,19 @@ class Model_Core_Adapter
 		return $connect;
 	}
 
+	public function query($query)
+	{
+		$connect = $this->connect();
+		$result = $connect->query($query);
+		return $result;
+	}
+
 	public function fetchAll($query)
 	{
 		$connect = $this->connect();
 		$result = $connect->query($query);
-		if(!$result){
-			return false;
+		if($result->num_rows == 0){
+			return null;
 		}
 		return $result->fetch_all(MYSQLI_ASSOC);
 	}
@@ -30,8 +37,8 @@ class Model_Core_Adapter
 	{
 		$connect = $this->connect();
 		$result = $connect->query($query);
-		if(!$result){
-			return false;
+		if($result->num_rows == 0){
+			return null;
 		}
 		$data = $result->fetch_all();	
 		$column1 = array_column($data,'0');
@@ -45,8 +52,8 @@ class Model_Core_Adapter
 	{
 		$connect = $this->connect();
 		$result = $connect->query($query);
-		if(!$result){
-			return false;
+		if($result->num_rows == 0){
+			return null;
 		}
 		$row = $result->fetch_array();
 		return (array_key_exists(0,$row)) ? $row[0] : null;
@@ -56,8 +63,8 @@ class Model_Core_Adapter
 	{
 		$connect = $this->connect();
 		$result = $connect->query($query);
-		if (!$result) {
-			return false;
+		if ($result->num_rows == 0) {
+			return null;
 		}
 		return $result->fetch_assoc();
 	}
