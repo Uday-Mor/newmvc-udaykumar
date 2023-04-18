@@ -1,0 +1,24 @@
+<?php
+$attribute = $this->getAttribute();
+$row = $this->getRow();
+if ($attribute->input_type == 'text') {
+	$inputTypeText = $this->getLayout()->creatBlock('Eav_Attribute_Inputtype_Text');
+	$inputTypeText->setAttribute($attribute)->setRow($row);
+	$inputTypeText->render();
+}
+if ($attribute->input_type == 'textBox') {
+	$inputTypeTextBox = $this->getLayout()->creatBlock('Eav_Attribute_Inputtype_Textbox');
+	$inputTypeTextBox->setAttribute($attribute)->setRow($row);
+	$inputTypeTextBox->render();
+}
+if ($attribute->input_type == 'select') {
+	$inputTypeSelect = $this->getLayout()->creatBlock('Eav_Attribute_Inputtype_Select');
+	$inputTypeSelect->setAttribute($attribute)->setRow($row);
+	$inputTypeSelect->render();
+}
+if ($attribute->input_type == 'multiSelect') {
+	$inputTypeMultiSelect = $this->getLayout()->creatBlock('Eav_Attribute_Inputtype_Multiselect');
+	$inputTypeMultiSelect->setAttribute($attribute)->setRow($row);
+	$inputTypeMultiSelect->render();
+}
+?>

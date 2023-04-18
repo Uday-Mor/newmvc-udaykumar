@@ -2,78 +2,72 @@
 $vendor = $this->getData('vendor');
 $address = $this->getData('address');
 ?>
-<!DOCTYPE html>
-<html>
-<?php require_once 'View/html/head.phtml'; ?>
-<body>
-	<form method="POST" action=<?php echo $this->getUrl('save',null,['address_id'=>$address->address_id]); ?>>
-		<div class="head_container">
-			<h2 class="edit_heading">EDIT VENDOR</h2>
-			<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
-			<input class="save_link" type="submit" value="Save">
-		</div>
-		<div class="tabel_container">
-			<table>
-				<tr>
-					<th>VENDOR INFORMATION</th>
-				</tr>
-				<tr>
-					<td>First Name</td>
-					<td> <input type="text" name="vendor[first_name]" value=<?php echo $vendor->first_name; ?>> </td>
-				</tr>
-				<tr>
-					<td>Last Name</td>
-					<td> <input type="text" name="vendor[last_name]" value=<?php echo $vendor->last_name; ?>> </td>
-				</tr>
-				<tr>
-					<td>E-mail</td>
-					<td> <input type="text" name="vendor[email]" value=<?php echo $vendor->email; ?>> </td>
-				</tr>
-				<tr>
-					<td>Gender</td>
-					<td>
-						<select name="vendor[gender]">
-							<option value="male" <?php if($vendor->gender == "male") echo "SELECTED";?>>Male</option>
-							<option value="female" <?php if($vendor->gender == "female") echo "SELECTED";?>>Female</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Mobile</td>
-					<td> <input type="number" name="vendor[mobile]" value=<?php echo $vendor->mobile; ?>> </td>
-				</tr>
-				<tr>
-					<td>Status</td>
-					<td>
-						<select name="vendor[status]">
-							<?php foreach (Ccc::getModel('Vendor_Resource')->getStatusOptions() as $key => $value) : ?>
-							<option value="<?php echo $key; ?>" <?php echo ($vendor->getStatus() == $key) ? 'selected' : ''; ?>><?php echo $value; ?></option>
-							<?php endforeach;?>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Address</td>
-					<td><textarea name="address[address]"><?php echo $address->address; ?></textarea></td>
-				</tr>
-				<tr>
-					<td>City</td>
-					<td><input type="text" name="address[city]" value=<?php echo $address->city; ?>></textarea></td>
-				</tr>
-				<tr>
-					<td>State</td>
-					<td><input type="text" name="address[state]" value=<?php echo $address->state; ?>></textarea></td>
-				</tr>
-				<tr>
-					<td>Country</td>
-					<td><input type="text" name="address[country]" value=<?php echo $address->country; ?>></textarea></td>
-				</tr>
-				<tr>
-					<td>ZIP Code</td>
-					<td><input type="number" name="address[zip_code]" value=<?php echo $address->zip_code; ?>></textarea></td>
-				</tr>
-			</table>
-		</div>
-	</form>
-</body>
-</html>
+<form method="POST" action=<?php echo $this->getUrl('save',null,['address_id'=>$address->address_id]); ?>>
+	<div class="head_container">
+		<h2 class="edit_heading">EDIT VENDOR</h2>
+		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
+		<input class="save_link" type="submit" value="Save">
+	</div>
+	<div class="tabel_container">
+		<table>
+			<tr>
+				<th>VENDOR INFORMATION</th>
+			</tr>
+			<tr>
+				<td>First Name</td>
+				<td> <input type="text" name="vendor[first_name]" value=<?php echo $vendor->first_name; ?>> </td>
+			</tr>
+			<tr>
+				<td>Last Name</td>
+				<td> <input type="text" name="vendor[last_name]" value=<?php echo $vendor->last_name; ?>> </td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td> <input type="text" name="vendor[email]" value=<?php echo $vendor->email; ?>> </td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td>
+					<select name="vendor[gender]">
+						<option value="male" <?php if($vendor->gender == "male") echo "SELECTED";?>>Male</option>
+						<option value="female" <?php if($vendor->gender == "female") echo "SELECTED";?>>Female</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Mobile</td>
+				<td> <input type="number" name="vendor[mobile]" value=<?php echo $vendor->mobile; ?>> </td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td>
+					<select name="vendor[status]">
+						<?php foreach (Ccc::getModel('Vendor_Resource')->getStatusOptions() as $key => $value) : ?>
+						<option value="<?php echo $key; ?>" <?php echo ($vendor->getStatus() == $key) ? 'selected' : ''; ?>><?php echo $value; ?></option>
+						<?php endforeach;?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td><textarea name="address[address]"><?php echo $address->address; ?></textarea></td>
+			</tr>
+			<tr>
+				<td>City</td>
+				<td><input type="text" name="address[city]" value=<?php echo $address->city; ?>></textarea></td>
+			</tr>
+			<tr>
+				<td>State</td>
+				<td><input type="text" name="address[state]" value=<?php echo $address->state; ?>></textarea></td>
+			</tr>
+			<tr>
+				<td>Country</td>
+				<td><input type="text" name="address[country]" value=<?php echo $address->country; ?>></textarea></td>
+			</tr>
+			<tr>
+				<td>ZIP Code</td>
+				<td><input type="number" name="address[zip_code]" value=<?php echo $address->zip_code; ?>></textarea></td>
+			</tr>
+		</table>
+	</div>
+</form>

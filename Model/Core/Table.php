@@ -5,6 +5,8 @@
 class Model_Core_Table
 {
 	protected $data = [];
+	protected $resourceClass = 'Core_Table_Resource';
+	protected $collectionClass = 'Core_Table_Collection';
 	protected $resource = null;
 	protected $collection = null;
 

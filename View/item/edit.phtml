@@ -1,0 +1,38 @@
+<?php $row = $this->getData('item'); ?>
+<?php $attributes = $this->getAttributes(); ?>
+<form action="<?php echo $this->getUrl('save',null,['item_id'=>$row->item_id]); ?>" method="POST">
+	<div class="head_container">
+		<h2 class="edit_heading">EDIT Item</h2>
+		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
+		<input class="save_link" type="submit" value="Save">
+	</div>
+	<table>
+		<tr>
+			<th>Item INFORMATION</th>
+		</tr>
+		<tr>
+			<td>SKU</td>
+			<td> <input type="text" name="item[sku]" value="<?php echo $row->sku; ?>"> </td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td>
+				<select name="item[status]">
+					<?php foreach (Ccc::getModel('Item_Resource')->getStatusOptions() as $key => $value) : ?>
+					<option value="<?php echo $key; ?>" <?php echo ($row->getStatus() == $key) ? 'selected' : ''; ?>><?php echo $value; ?></option>
+					<?php endforeach;?>
+				</select>
+			</td>
+		</tr>
+		<?php if ($attributes) : ?>
+		<?php foreach ($attributes as $attribute) : ?>
+		<tr>
+			<td><?php echo $attribute->name; ?></td>
+			<td>
+				<?php $this->getLayout()->creatBlock('Eav_Attribute_InputType')->setAttribute($attribute)->setRow($row)->render(); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	</table>
+</form>

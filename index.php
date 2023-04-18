@@ -32,6 +32,11 @@ class Ccc
 		return new $className();	
 	}
 
+	public static function log($data,$fileName = 'system.log',$newFile = false)
+	{
+		self::getSingleTon('Core_Log')->log($data,$fileName,$newFile);
+	}
+
 	public static function getSingleTon($className)
 	{
 		$className = 'Model_'.$className;
@@ -55,6 +60,14 @@ class Ccc
 		return false;
 	}
 
+	public static function getBaseDir($subDir = null)
+	{
+		$dir = getcwd();
+		if ($subDir) {
+			$dir = $dir.$subDir;
+		}
+		return $dir;
+	}
 }
 Ccc::init();
 ?>

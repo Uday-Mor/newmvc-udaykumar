@@ -58,6 +58,18 @@ class Model_Core_Table_Resource
 		return $results;
 	}
 
+	public function insertUpdateonDuplicate($data,$uniqueColumns)
+	{
+		$columns = "`" . implode("`, `", array_keys($data)) . "`";
+		$values = "'" . implode("', '", array_values($data)) . "'";
+		$query = 'INSERT INTO `'.$this->getTableName().'` ('.$columns.') VALUES ('.$values.') ON DUPLICATE KEY UPDATE';
+		$set = "";
+		foreach ($data as $column => $value) {
+		  $set .= '`'.$column.'` = "'.$value.'",';
+		}
+		
+	}
+
 	public function load($id,$column = null)
 	{
 		$adapter = $this->getAdapter();
@@ -121,4 +133,3 @@ class Model_Core_Table_Resource
 		return $result;
 	}
 }
-?>
