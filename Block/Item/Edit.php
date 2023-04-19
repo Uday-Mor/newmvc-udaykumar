@@ -18,6 +18,6 @@ class Block_Item_Edit extends Block_Core_Templates
 	{
 		$query = "SELECT * FROM `eav_attribute` WHERE `entity_type_id` = '".Model_Item_Resource::ENTITY_TYPE_ID."' AND `status` = '".Model_Item_Resource::STATUS_ACTIVE."'";
 		$attributes = Ccc::getModel('Eav_Attribute')->fetchAll($query);
-		return $attributes->getData();
+		return $attributes;
 	}
 }

@@ -16,7 +16,7 @@ $rows = $this->getCollection();
 		<th><?php echo $action['title']; ?></th>		
 		<?php endforeach; ?>
 	</tr>
-	<?php if (!$rows->getData()) : ?>
+	<?php if (!$rows) : ?>
 	<tr>
 		<td>No record Found!!!</td>
 	</tr>

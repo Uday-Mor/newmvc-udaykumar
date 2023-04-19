@@ -1,4 +1,5 @@
-<?php $product = $this->getData('product');?>
+<?php $row = $this->getData('product');?>
+<?php $attributes = $this->getAttributes(); ?>
 <form method="POST" action="<?php echo $this->getUrl('save'); ?>">
 	<table>
 		<tr>
@@ -7,41 +8,51 @@
 		</tr>
 		<tr>
 			<td>SKU Id</td>
-			<td><input type="text" name="product[sku_id]" value="<?php echo $product->sku_id; ?>"></td>
+			<td><input type="text" name="product[sku_id]" value="<?php echo $row->sku_id; ?>"></td>
 		</tr>
 		<tr>
 			<td>Cost</td>
-			<td><input type="number" name="product[cost]" value="<?php echo $product->cost; ?>"></td>
+			<td><input type="number" name="product[cost]" value="<?php echo $row->cost; ?>"></td>
 		</tr>
 		<tr>
 			<td>Price</td>
-			<td><input type="number" name="product[price]" value="<?php echo $product->price; ?>"></td>
+			<td><input type="number" name="product[price]" value="<?php echo $row->price; ?>"></td>
 		</tr>
 		<tr>
 			<td>Quantity</td>
-			<td><input type="number" name="product[quantity]" value="<?php echo $product->quantity; ?>"></td>
+			<td><input type="number" name="product[quantity]" value="<?php echo $row->quantity; ?>"></td>
 		</tr>
 		<tr>
 			<td>Description</td>
-			<td><textarea name="product[description]"><?php echo $product->description; ?></textarea></td>
+			<td><textarea name="product[description]"><?php echo $row->description; ?></textarea></td>
 		</tr>
 		<tr>
 			<td>Status</td>
 			<td>
 				<select name="product[status]">
 					<?php foreach (Ccc::getModel('Product_Resource')->getStatusOptions() as $key => $value) : ?>
-					<option value="<?php echo $key; ?>" <?php echo ($product->getStatus() == $key) ? 'selected' : ''; ?>><?php echo $value; ?></option>
+					<option value="<?php echo $key; ?>" <?php echo ($row->getStatus() == $key) ? 'selected' : ''; ?>><?php echo $value; ?></option>
 					<?php endforeach;?>
 				</select>
 			</td>
 		</tr>
 		<tr>
 			<td>Color</td>
-			<td><input type="text" name="product[color]" value="<?php echo $product->color; ?>"></td>
+			<td><input type="text" name="product[color]" value="<?php echo $row->color; ?>"></td>
 		</tr>
 		<tr>
 			<td>Material</td>
-			<td><input type="text" name="product[material]" value="<?php echo $product->material; ?>"></td>
+			<td><input type="text" name="product[material]" value="<?php echo $row->material; ?>"></td>
 		</tr>
+		<?php if ($attributes) : ?>
+		<?php foreach ($attributes->getdata() as $attribute) : ?>
+		<tr>
+			<td><?php echo $attribute->name; ?></td>
+			<td>
+				<?php $this->getLayout()->creatBlock('Eav_Attribute_InputType')->setAttribute($attribute)->setRow($row)->render(); ?>
+			</td>
+		</tr>
+		<?php endforeach; ?>
+		<?php endif; ?>
 	</table>
 </form>

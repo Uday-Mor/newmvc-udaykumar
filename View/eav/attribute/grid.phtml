@@ -4,7 +4,7 @@
 	<a class="add_salesman_link" href=<?php echo $this->getUrl('add',null,null,true); ?>>ADD Attribute</a>
 </div>
 <div class="tabel_container">
-	<table>
+	<table class="table table-bordered border-primary ">
 			<tr>
 				<th>Attribute Id</th>
 				<th>Entity Type Id</th>
@@ -13,6 +13,7 @@
 				<th>Name</th>
 				<th>Status</th>
 				<th>Backend Model</th>
+				<th>Source Model</th>
 				<th>Input Type</th>
 				<th>EDIT</th>
 				<th>DELETE</th>
@@ -28,6 +29,7 @@
 				<th><?php echo $attribute->entity_type_id; ?></th>
 				<th><?php echo $attribute->code; ?></th>
 				<th><?php echo $attribute->backend_type; ?></th>
+				<th><?php echo $attribute->source_type; ?></th>
 				<th><?php echo $attribute->name; ?></th>
 				<th><?php echo $attribute->getStatusText(); ?></th>
 				<th><?php echo $attribute->backend_model; ?></th>

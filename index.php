@@ -8,9 +8,6 @@ spl_autoload_register(function ($className) {
     require_once $className;
 });
 
-$session = new Model_Core_Session();
-$session->start();
-
 if (!(Ccc::getModel('Core_Request')->getParams('c')) || !(Ccc::getModel('Core_Request')->getParams('a'))) {
 	header('Location:http://localhost/newmvc-udaykumar/index.php?c=product&a=grid');
     exit();

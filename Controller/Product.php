@@ -69,6 +69,10 @@ class Controller_Product extends Controller_Core_Action
 				if (!($product = $product->load($productId))) {
 					$this->errorAction('Failed to fetch data!!!');
 				}
+
+				unset($product->base);
+				unset($product->small);
+				unset($product->thumnail);
 			}
 			
 			if ($product->product_id) {
@@ -78,8 +82,28 @@ class Controller_Product extends Controller_Core_Action
 			}
 
 			$product->setData($postData);
-			if (!($product->save())) {
+			if (!($insertId = $product->save())) {
 				$this->errorAction('Failed to save Data!!!');
+			}
+
+			if (!$product->product_id) {
+				$product->product_id = $insertId;
+			}
+
+			$attributePostData = $this->getRequest()->getPost('attribute');
+			if ($attributePostData) {
+				foreach ($attributePostData as $backendType => $attributes) {
+					foreach ($attributes as $attributeId => $value) {
+						if(is_array($value)){
+							$value = implode(",", $value);
+						}
+
+						$model = Ccc::getModel("Core_Table");
+						$model->getResource()->setTableName("product_{$backendType}")->setPrimaryKey('value_id');
+						$query = "INSERT INTO `product_{$backendType}` (`entity_id`,`attribute_id`,`value`) VALUES ('{$product->getId()}','{$attributeId}','{$value}') ON DUPLICATE KEY UPDATE `value` = '{$value}'";
+						$model->getResource()->getAdapter()->query($query);
+					}
+				}
 			}
 
 			$this->getMessage()->addMessage('Data saved successfully!!!');

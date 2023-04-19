@@ -29,10 +29,4 @@ class Model_Item extends Model_Core_Table
         $query = "SELECT `value` FROM `item_{$attribute->backend_type}` WHERE `attribute_id` = '{$attribute->getId()}' AND `item_id` = '{$this->getId()}'";
         return $this->getResource()->getAdapter()->fetchOne($query);
     }
-
-    public function getOptions($attribute)
-    {
-        $query = "SELECT * FROM `eav_attribute_option` WHERE `attribute_id` = '{$attribute->getId()}'";
-        return Ccc::getModel('Eav_Attribute_Option')->fetchAll($query)->getData();
-    }
 }
