@@ -2,34 +2,34 @@
 /**
  * 
  */
-class Block_Shipping_Grid extends Block_Core_Grid
+class Block_Brand_Grid extends Block_Core_Grid
 {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->setTitle('Manage Shippings');
+		$this->setTitle('Manage Brands');
 	}
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `shipping`';
-		$shippings = Ccc::getModel('Shipping')->fetchAll($query);
-		return $shippings;
+		$query = 'SELECT * FROM `brand`';
+		$brands = Ccc::getModel('Brand')->fetchAll($query);
+		return $brands;
 	}
 
 	public function _prepareColumns()
 	{
-		$this->addColumn('shipping_id',[
-			'title'=>'Shipping Id'
+		$this->addColumn('brand_id',[
+			'title'=>'Brand Id'
 		]);
 		$this->addColumn('name',[
 			'title'=>'Name'
 		]);
-		$this->addColumn('amount',[
-			'title'=>'Amount'
+		$this->addColumn('discription',[
+			'title'=>'Discription'
 		]);
-		$this->addColumn('status',[
-			'title'=>'Status'
+		$this->addColumn('image',[
+			'title'=>'Image'
 		]);
 		$this->addColumn('created_at',[
 			'title'=>'Created At'
@@ -54,7 +54,7 @@ class Block_Shipping_Grid extends Block_Core_Grid
 	public function _prepareButtons()
 	{
 		$this->addButton('add',[
-			'title'=>'Add Product',
+			'title'=>'Add Brand',
 			'url'=>$this->getUrl('add')
 		]);
 	}
@@ -69,11 +69,11 @@ class Block_Shipping_Grid extends Block_Core_Grid
 
 	public function getEditUrl($row)
 	{
-		return $this->getUrl('edit',null,['shipping_id'=>$row->shipping_id]);
+		return $this->getUrl('edit',null,['brand_id'=>$row->brand_id]);
 	}
 
 	public function getDeleteUrl($row)
 	{
-		return $this->getUrl('delete',null,['shipping_id'=>$row->shipping_id]);
+		return $this->getUrl('delete',null,['brand_id'=>$row->brand_id]);
 	}
 }

@@ -43,6 +43,12 @@ class Model_Core_Table
 		return false;
 	}
 
+	// public function getOptions($attribute)
+    // {
+    //     $query = "SELECT * FROM `eav_attribute_option` WHERE `attribute_id` = '{$attribute->getId()}'";
+    //     return Ccc::getModel('Eav_Attribute_Option')->fetchAll($query)->getData();
+    // }
+
 	public function setResource($resource)
 	{
 		$this->resource = $resource;

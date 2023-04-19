@@ -12,6 +12,23 @@ class Block_Core_Templates extends Model_Core_View
 		parent::__construct();
 	}
 
+	public function getChildHtml($key)
+	{
+		if ($child = $this->getChild()) {
+			return $child->toHtml();
+		}
+		return null;
+	}
+
+	public function toHtml()
+	{
+		ob_start();
+		$this->render();
+		$content = ob_get_contents();
+		ob_end_clean();
+		return $content;
+	}
+
 	public function setChildren(array $children)
 	{
 		$this->children = $children;
@@ -50,6 +67,11 @@ class Block_Core_Templates extends Model_Core_View
 
 	public function getLayout()
 	{
-		return $this->layout;
+		if ($this->layout) {
+			return $this->layout;
+		}
+		$layout = new Block_Core_Layout();
+		$this->setLayout($layout);	
+		return $layout;
 	}
 }

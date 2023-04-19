@@ -12,18 +12,22 @@ class Model_Core_Session
 
 	public function start()
 	{
-		session_start();
+		if (session_status() != 2) {
+			session_start();
+		}
 		return $this;
 	}
 
 	public function destroy()
 	{
+		$this->start();
 		session_destroy();
 		return $this;
 	}
 
 	public function set($key,$value)
 	{
+		$this->start();
 		$_SESSION[$key] = $value;
 		return $this;
 	}
@@ -46,6 +50,7 @@ class Model_Core_Session
 
 	public function has($key)
 	{
+		$this->start();
 		if (!array_key_exists($key,$_SESSION)) {
 			return false;
 		}

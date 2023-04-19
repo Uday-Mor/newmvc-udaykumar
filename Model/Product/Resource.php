@@ -12,6 +12,7 @@ class Model_Product_Resource extends Model_Core_Table_Resource
 	const STATUS_INACTIVE = 2;
 	const STATUS_INACTIVE_LBL = 'Inactive';
 	const STATUS_DEFAULT = 2;
+	const ENTITY_TYPE_ID = 1;
 
 	public function getStatusOptions()
 	{

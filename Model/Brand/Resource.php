@@ -1,18 +1,18 @@
 <?php
 /**
- * .
+ * 
  */
-class Model_Category_Resource extends Model_Core_Table_Resource
+class Model_Brand_Resource extends Model_Core_Table_Resource
 {
-	public $tableName = 'category';
-	public $primaryKey = 'category_id';
+	public $tableName = 'brand';
+	public $primaryKey = 'brand_id';
 
 	const STATUS_ACTIVE = 1;
 	const STATUS_ACTIVE_LBL = 'Active';
 	const STATUS_INACTIVE = 2;
 	const STATUS_INACTIVE_LBL = 'Inactive';
 	const STATUS_DEFAULT = 2;
-	const ENTITY_TYPE_ID = 2;
+	const ENTITY_TYPE_ID = 9;
 
 	public function getStatusOptions()
 	{

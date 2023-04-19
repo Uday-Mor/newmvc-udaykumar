@@ -85,4 +85,10 @@ class Model_Category extends Model_Core_Table
 
         return $this;
     }
+
+    public function getAttributeValue($attribute)
+    {
+        $query = "SELECT `value` FROM `category_{$attribute->backend_type}` WHERE `attribute_id` = '{$attribute->getId()}' AND `category_id` = '{$this->getId()}'";
+        return $this->getResource()->getAdapter()->fetchOne($query);
+    }
 }

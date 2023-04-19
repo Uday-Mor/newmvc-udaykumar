@@ -45,4 +45,10 @@ class Model_Product extends Model_Core_Table
     {
     	return $this->small;
     }
+
+    public function getAttributeValue($attribute)
+    {
+        $query = "SELECT `value` FROM `product_{$attribute->backend_type}` WHERE `attribute_id` = '{$attribute->getId()}' AND `entity_id` = '{$this->getId()}'";
+        return $this->getResource()->getAdapter()->fetchOne($query);
+    }
 }

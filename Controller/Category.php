@@ -80,9 +80,25 @@ class Controller_Category extends Controller_Core_Action
 			$category->setData($postData);
 			if (!($insertId = $category->save())) {
 				$this->errorAction('Data not saved!!!');
-			}else{
-				if(!$category->category_id){
-					$category->category_id = $insertId;
+			}
+
+			if(!$category->category_id){
+				$category->category_id = $insertId;
+			}
+
+			$attributePostData = $this->getRequest()->getPost('attribute');
+			if ($attributePostData) {
+				foreach ($attributePostData as $backendType => $attributes) {
+					foreach ($attributes as $attributeId => $value) {
+						if(is_array($value)){
+							$value = implode(",", $value);
+						}
+
+						$model = Ccc::getModel("Core_Table");
+						$model->getResource()->setTableName("category_{$backendType}")->setPrimaryKey('value_id');
+						$query = "INSERT INTO `category_{$backendType}` (`entity_id`,`attribute_id`,`value`) VALUES ('{$category->getId()}','{$attributeId}','{$value}') ON DUPLICATE KEY UPDATE `value` = '{$value}'";
+						$model->getResource()->getAdapter()->query($query);
+					}
 				}
 			}
 

@@ -1,8 +1,8 @@
 <?php $attribute = $this->getAttribute();?>
 <?php $row = $this->getRow();?>
 <select name="attribute[<?php echo $attribute->backend_type; ?>][<?php echo $attribute->attribute_id; ?>]">
-	<?php if ($row->getOptions($attribute)) : ?>
-	<?php foreach ($row->getOptions($attribute) as $option) : ?>
+	<?php if ($options = $attribute->getOptions($attribute)) : ?>
+	<?php foreach ($options->getData() as $option) : ?>
 		<option value="<?php echo $option->option_id; ?>"><?php echo $option->name; ?></option>
 	<?php endforeach; ?>
 	<?php endif; ?>
