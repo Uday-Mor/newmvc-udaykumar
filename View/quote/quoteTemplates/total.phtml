@@ -1,0 +1,22 @@
+<?php $quote = $this->getQuote(); ?>
+<table>
+	<tr>
+		<td>Sub Total :</td>
+		<td><input type="number" value="" id = 'subTotal' readonly></td>
+	</tr>
+	<tr>
+		<td>Shipping :</td>
+		<td><input type="number" id="shippingAmount" value="<?php echo $quote->shippingValue(); ?>"readonly></td>
+	</tr>
+	<tr>
+		<td>Discount :</td>
+		<td><input type="number" value="" id = 'discount' readonly></td>
+	</tr>
+	<tr>
+		<td>Grand Total :</td>
+		<td><input type="number" value="" id = 'grandTotal' readonly></td>
+	</tr>
+</table>
+<script type="text/javascript">
+
+</script>

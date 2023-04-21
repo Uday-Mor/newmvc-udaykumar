@@ -1,0 +1,85 @@
+<?php $customers = $this->getCustomers(); ?>
+<?php $quote = $this->getQuote(); ?>
+<form id="main_form" method="POST" action="">
+	<table class="table table-bordered border-primary ">
+	<select name="customer_id">
+		<?php if ($customers) : ?>
+		<?php foreach ($customers->getdata() as $customer) : ?>
+		<option value="<?php echo $customer->getId(); ?>"><?php echo $customer->first_name.' '.$customer->last_name; ?></option>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	</select>
+	<button type="submit" onclick="setUrl('<?php echo $this->getUrl('getCustomer'); ?>')">Add Quote</button>
+	</table>
+	<?php if ($quote->customer_id) : ?>
+	<?php $this->getLayout()->creatBlock('Quote_QuoteTemplates_BillingAddress')->setQuote($quote)->render(); ?>	
+	<input type="checkbox" id="sameAddress" name="sameAddress" onchange="changeAddressMethod()">
+	<?php $this->getLayout()->creatBlock('Quote_QuoteTemplates_ShippingAddress')->setQuote($quote)->render(); ?>	
+	<button type="submit" onclick="setUrl('<?php echo $this->getUrl('saveAddress'); ?>')">Save</button>
+	<?php $this->getLayout()->creatBlock('Quote_QuoteTemplates_Payment')->setQuote($quote)->render(); ?>	
+	<button type="submit" onclick="setUrl('<?php echo $this->getUrl('savePaymentMethod'); ?>')">Save</button>
+	<?php $this->getLayout()->creatBlock('Quote_QuoteTemplates_Shipping')->setQuote($quote)->render(); ?>	
+	<button type="submit" onclick="setUrl('<?php echo $this->getUrl('saveShippingMethod'); ?>')">Save</button>
+	<?php $this->getLayout()->creatBlock('Quote_QuoteTemplates_Item')->setQuote($quote)->render(); ?>	
+	<?php $this->getLayout()->creatBlock('Quote_QuoteTemplates_Total')->setQuote($quote)->render(); ?>	
+	<?php endif; ?>
+</form>
+<script type="text/javascript">
+function setUrl(url) {
+	$('#main_form').attr('action',url);
+}
+function changeAddressMethod() {
+	if ($('#sameAddress').is(':checked')) {
+		$('#shippingAddress').hide();
+	}else{
+		$('#shippingAddress').show();
+	}
+}
+
+$('#products').hide();
+function hideProducts() {
+	$('#products').hide();
+}
+
+function showProducts() {
+	$('#products').show();
+}
+$(document).ready(function() {
+    // Function to calculate row total
+    function calculateRowTotal(row) {
+        var price = parseFloat(row.find('.price').val());
+        var quantity = parseInt(row.find('.quantity').val());
+        var discount = parseInt(row.find('.discount').val());
+        var total = (price * quantity) - discount;
+        row.find('.rowTotal').val(total.toFixed(2));
+    }
+
+    // Calculate row total on keyup
+    $(document).on('keyup', '.price, .quantity, .discount', function() {
+        var $row = $(this).closest('tr');
+        calculateRowTotal($row);
+
+        // Calculate grand total
+        var total = 0;
+        $('.rowTotal').each(function() {
+            total += parseFloat($(this).val());
+        });
+        $('#total').val(total);
+		$('#subTotal').val($('#total').val());
+		$('#grandTotal').val(parseInt($('#subTotal').val())+parseInt($('#shippingAmount').val()));
+		
+    });
+
+	$('.price').each(function(){
+	    var $row = $(this).closest('tr');
+	    calculateRowTotal($row);
+	    var total = 0;
+        $('.rowTotal').each(function() {
+            total += parseFloat($(this).val());
+        });
+        $('#total').val(total);
+		$('#subTotal').val($('#total').val());
+		$('#grandTotal').val(parseInt($('#subTotal').val())+parseInt($('#shippingAmount').val()));
+	})
+});
+</script>

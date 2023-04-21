@@ -11,6 +11,7 @@ class Controller_Core_Action
    protected $message = null;
    protected $view = null;
    protected $layout = null;
+   protected $session = null;
 
 	protected function redirect($action=null,$controller=null,$params=null,$resetParam=false)
    {
@@ -114,6 +115,21 @@ class Controller_Core_Action
       $layout = new Block_Core_Layout();
       $this->setLayout($layout);
       return $layout;
+   }
+
+   public function setSession(Model_Core_Session $session)
+   {
+      $this->session = $session;
+   }
+
+   public function getSession()
+   {
+      if ($this->session) {
+         return $this->session;
+      }
+      $session = new Model_Core_Session();
+      $this->setSession($session);
+      return $session;
    }
 
    public function render()

@@ -1,0 +1,28 @@
+<?php $shippingAddress = $this->getQuote()->getQuoteShippingAddress(); ?>
+<div class="tabel_container" id="shippingAddress">
+	<table class="table table-bordered border-primary ">
+		<tr>
+			<th>SHIPPING ADDRESS INFORMATION</th>
+		</tr>
+		<tr>
+			<td>Address</td>
+			<td><input name="shippingAddress[address]" value="<?php echo $shippingAddress->address; ?>"></td>
+		</tr>
+		<tr>
+			<td>City</td>
+			<td><input name="shippingAddress[city]" value="<?php echo $shippingAddress->city; ?>"></td>
+		</tr>
+		<tr>
+			<td>State</td>
+			<td><input name="shippingAddress[state]" value="<?php echo $shippingAddress->state; ?>"></td>
+		</tr>
+		<tr>
+			<td>Country</td>
+			<td><input name="shippingAddress[country]" value="<?php echo $shippingAddress->country; ?>"></td>
+		</tr>
+		<tr>
+			<td>ZIP Code</td>
+			<td><input name="shippingAddress[zip_code]" value="<?php echo $shippingAddress->zip_code; ?>"></td>
+		</tr>
+	</table>
+</div>
