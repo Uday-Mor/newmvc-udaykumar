@@ -1,0 +1,17 @@
+<?php $quote = $this->getQuote(); ?>
+<?php $payments = $quote->getPayments(); ?>
+
+<div class="tabel_container">
+	<table class="table table-bordered border-primary ">
+		<tr>
+			<th>Payment Methods</th>
+		</tr>
+		<?php if($payments) : ?>
+		<?php foreach ($payments->getData() as $payment) : ?>
+		<tr>
+			<td><input type="radio" name="payment_id" value="<?php echo $payment->payment_id; ?>"> <label><?php echo $payment->name; ?></label></td>
+		</tr>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	</table>
+</div>

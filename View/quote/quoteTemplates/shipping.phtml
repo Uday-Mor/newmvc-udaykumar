@@ -1,0 +1,17 @@
+<?php $quote = $this->getQuote(); ?>
+<?php $shippings = $quote->getShippings(); ?>
+
+<div class="tabel_container">
+	<table class="table table-bordered border-primary ">
+		<tr>
+			<th>Shipping Methods</th>
+		</tr>
+		<?php if($shippings) : ?>
+		<?php foreach ($shippings->getData() as $shipping) : ?>
+		<tr>
+			<td><input type="radio" name="shipping_id" value="<?php echo $shipping->shipping_id; ?>"><label><?php echo $shipping->name; ?></label></td>
+		</tr>
+		<?php endforeach; ?>
+		<?php endif; ?>
+	</table>
+</div>

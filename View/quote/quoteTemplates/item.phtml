@@ -1,0 +1,73 @@
+<?php $quote = $this->getQuote(); ?>
+<?php $items = $quote->getItems();  ?>
+<?php $products = $quote->getProducts();  ?>
+<div>
+	<div id="products">
+		<button type="button" onclick="hideProducts()">Cancle</button>
+		<button type="submit" onclick="setUrl('<?php echo $this->getUrl('addItems'); ?>')">Add Items</button>
+		<table class="table table-bordered border-primary ">
+			<tr>
+				<td>Products</td>
+			</tr>
+			<?php if (!$products) : ?>
+			<tr>
+				<td>Add Products !!!!</td>
+			</tr>
+			<?php else : ?>
+			<tr>
+				<td>Name</td>
+				<td>Quantity</td>
+				<td>Price</td>
+				<td>Row Total</td>
+				<td>Add</td>
+			</tr>
+			<?php foreach ($products->getData() as $product) : ?>
+			<tr>
+				<td><?php echo $product->sku_id; ?></td>
+				<td>1</td>
+				<td><?php echo $product->price; ?></td>
+				<td><input type="text" value="<?php echo $product->price; ?>"></td>
+				<td><input type="checkbox" name="items[]" value="<?php echo $product->product_id; ?>"></td>
+			</tr>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		</table>		
+	</div>
+	<div id="Items">
+		<button type="submit" onclick="setUrl('<?php echo $this->getUrl('saveItems'); ?>')">Update Items</button>
+		<button type="button" onclick="showProducts()">Add New Items</button>
+		<table class="table table-bordered border-primary ">
+			<tr>
+				<td>Items</td>
+			</tr>
+			<?php if (!$items) : ?>
+			<tr>
+				<td>Add Items !!!!</td>
+			</tr>
+			<?php else : ?>
+			<tr>
+				<td>Name</td>
+				<td>Quantity</td>
+				<td>Discount</td>
+				<td>Price</td>
+				<td>Row Total</td>
+				<td>Remove</td>
+			</tr>
+			<?php foreach ($items->getData() as $item) : ?>
+			<tr>
+				<td><?php echo $item->name; ?></td>
+				<td><input name="item[<?php echo $item->getId(); ?>][quantity]" class="quantity" type="number" value="<?php echo $item->quantity; ?>"></td>
+				<td><input class="discount" type="number" value="<?php echo ($item->price/10) ?>" readonly></td>
+				<td><input class="price" type="number" value="<?php echo $item->price; ?>" readonly></td>
+				<td><input class="rowTotal" class="rowTotal" type="text" value=""></td>
+				<td><button type="submit" onclick="setUrl('<?php echo $this->getUrl('removeItem',null,['item_id'=>$item->item_id]); ?>')">Remove</button></td>
+			</tr>
+			<?php endforeach; ?>
+			<?php endif; ?>
+			<tr>
+				<td>Total :</td>
+				<td><input  id="total" type="number" value="0" readonly></td>
+			</tr>
+		</table>
+	</div>
+</div>

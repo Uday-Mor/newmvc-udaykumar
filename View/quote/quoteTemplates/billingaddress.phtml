@@ -1,0 +1,28 @@
+<?php $billingAddress = $this->getQuote()->getQuoteBillingAddress(); ?>
+<div class="tabel_container">
+	<table class="table table-bordered border-primary ">
+		<tr>
+			<th>BILLING ADDRESS INFORMATION</th>
+		</tr>
+		<tr>
+			<td>Address</td>
+			<td><input name="billingAddress[address]" value="<?php echo $billingAddress->address; ?>"></td>
+		</tr>
+		<tr>
+			<td>City</td>
+			<td><input name="billingAddress[city]" value="<?php echo $billingAddress->city; ?>"></td>
+		</tr>
+		<tr>
+			<td>State</td>
+			<td><input name="billingAddress[state]" value="<?php echo $billingAddress->state; ?>"></td>
+		</tr>
+		<tr>
+			<td>Country</td>
+			<td><input name="billingAddress[country]" value="<?php echo $billingAddress->country; ?>"></td>
+		</tr>
+		<tr>
+			<td>ZIP Code</td>
+			<td><input name="billingAddress[zip_code]" value="<?php echo $billingAddress->zip_code; ?>"></td>
+		</tr>
+	</table>
+</div>
