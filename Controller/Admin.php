@@ -4,15 +4,22 @@
  */
 class Controller_Admin extends Controller_Core_Action
 {
+	public function indexAction()
+	{
+		$layout = $this->getLayout();
+		$layout->getChild('content')->addChild('index',$layout->creatBlock('Core_Layout')->setTemplate('admin/index.phtml'));
+		echo $layout->toHtml();
+	}
+
 	public function gridAction()
 	{
 		try {
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('grid',$layout->creatBlock('Admin_Grid'));
-			$layout->render();
+			$grid = $layout->creatBlock('Admin_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid','product',[],true);
 		}
 	}
 
@@ -24,11 +31,11 @@ class Controller_Admin extends Controller_Core_Action
 			}
 
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('edit',$layout->creatBlock('Admin_Edit'));
-			$layout->render();
+			$add = $layout->creatBlock('Admin_Edit');
+			$response = $add->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -46,11 +53,10 @@ class Controller_Admin extends Controller_Core_Action
 			$layout = $this->getLayout();
 			$edit = $layout->creatBlock('Admin_Edit');
 			$edit->setData(['admin'=>$admin]);
-			$layout->getChild('content')->addChild('content',$edit);
-			$layout->render();
+			$response = $edit->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -84,10 +90,12 @@ class Controller_Admin extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data saved successfully!!!');
-			$this->redirect('grid',null,[],true);			
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Admin_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -107,10 +115,12 @@ class Controller_Admin extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data deleted successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Admin_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 }

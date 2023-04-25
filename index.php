@@ -9,7 +9,7 @@ spl_autoload_register(function ($className) {
 });
 
 if (!(Ccc::getModel('Core_Request')->getParams('c')) || !(Ccc::getModel('Core_Request')->getParams('a'))) {
-	header('Location:http://localhost/newmvc-udaykumar/index.php?c=product&a=grid');
+	header('Location:http://localhost/Git/newmvc-udaykumar/index.php?c=product&a=grid');
     exit();
 }
 /**

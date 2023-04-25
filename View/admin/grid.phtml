@@ -1,8 +1,8 @@
 <?php $admins = $this->prepareData();?>
-<table>
+<table class="table table-bordered border-primary ">
 	<tr>
 		<th colspan="5">Manage Admin</th>
-		<th colspan="3"><a href="<?php echo $this->getUrl('add'); ?>">Add Admin</a></th>
+		<th colspan="3"><a onclick="ajax.setUrl('<?php echo $this->getUrl('add'); ?>').call()">Add Admin</a></th>
 	</tr>
 	<tr>
 		<td>Admin Id</td>
@@ -27,8 +27,8 @@
 		<td><?php echo $admin->getStatusText(); ?></td>
 		<td><?php echo $admin->created_at; ?></td>
 		<td><?php echo $admin->updated_at; ?></td>
-		<td><a href="<?php echo $this->getUrl('edit',null,['admin_id'=>$admin->admin_id]); ?>">EDIT</a></td>
-		<td><a href="<?php echo $this->getUrl('delete',null,['admin_id'=>$admin->admin_id]); ?>">DELETE</a></td>
+		<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('edit',null,['admin_id'=>$admin->admin_id]); ?>').call()">EDIT</a></td>
+		<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('delete',null,['admin_id'=>$admin->admin_id]); ?>').call()">DELETE</a></td>
 	</tr>
 	<?php endforeach; ?>
 	<?php endif; ?>

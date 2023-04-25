@@ -4,22 +4,30 @@
  */
 class Controller_Eav_Attribute extends Controller_Core_Action
 {
+	public function indexAction()
+	{
+		$layout = $this->getLayout();
+		$layout->getChild('content')->addChild('index',$layout->creatBlock('Core_Layout')->setTemplate('core/index.phtml'));
+		$this->renderLayout();
+	}
+
 	public function gridAction()
 	{
 		$layout = $this->getLayout();
-		$layout->getChild('content')->addChild('grid',$layout->creatBlock('Eav_Attribute_Grid'));
-		$layout->render();
+		$grid = $layout->creatBlock('Eav_Attribute_Grid');
+		$response = $grid->toHtml();
+		$this->getResponse()->jsonResponse(['element'=>'content','html'=>$response]);
 	}
 
 	public function addAction()
 	{
 		try {
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('edit',$layout->creatBlock('Eav_Attribute_Edit'));
-			$layout->render();
+			$add = $layout->creatBlock('Eav_Attribute_Edit');
+			$response = $add->toHtml();
+			$this->getResponse()->jsonResponse(['element'=>'content','html'=>$response]);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -36,11 +44,10 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 
 			$layout = $this->getLayout();
 			$edit = $layout->creatBlock('Eav_Attribute_Edit')->setData(['attribute'=>$attribute]);
-			$layout->getChild('content')->addChild('edit',$edit);
-			$layout->render();
+			$response = $edit->toHtml();
+			$this->getResponse()->jsonResponse(['element'=>'content','html'=>$response]);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}		
 	}
 
@@ -127,10 +134,11 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data saved successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$response = $layout->creatBlock('Eav_Attribute_Grid')->toHtml();
+			$this->getResponse()->jsonResponse(['element'=>'content','html'=>$response]);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -148,10 +156,11 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data deleted successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$response = $layout->creatBlock('Eav_Attribute_Grid')->toHtml();
+			$this->getResponse()->jsonResponse(['element'=>'content','html'=>$response]);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 }

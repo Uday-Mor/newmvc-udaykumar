@@ -1,9 +1,9 @@
 <?php $payment = $this->prepareData()->getData('payment');?>
-<form method="POST" action="<?php echo $this->getUrl('save'); ?>">
+<form id="payment" method="POST">
 	<table>
 		<tr>
 			<th>Manage Payment</th>
-			<th><input type="submit" value="Save"></th>
+			<th><input type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setMethod('POST').setForm('payment').call()"></th>
 		</tr>
 		<tr>
 			<td>Name</td>

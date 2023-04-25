@@ -4,8 +4,7 @@ $messages = $messageModel->getMessages();
 $messageModel->clearMessages();
 foreach ($messages as $type => $message) :
 ?>
-<!-- <h4></h4> -->
-<div class="alert alert-primary" role="alert">
+<div id="message-html" class="alert alert-primary" role="alert">
   <?php echo $message; ?>
 </div>
 <?php

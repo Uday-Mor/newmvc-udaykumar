@@ -12,6 +12,13 @@ class Controller_Core_Action
    protected $view = null;
    protected $layout = null;
    protected $session = null;
+   protected $response = null;
+
+   protected function _setTitle($title)
+   {
+      $this->getLayout()->getChild('head')->setTitle($title);
+      return $this;
+   }
 
 	protected function redirect($action=null,$controller=null,$params=null,$resetParam=false)
    {
@@ -38,6 +45,23 @@ class Controller_Core_Action
       $request = new Model_Core_Request();
       $this->setRequest($request);
       return $request;
+   }
+
+   public function setResponse(Model_Core_Response $response)
+   {
+      $this->response = $response;
+      return $this;
+   }
+
+   public function getResponse()
+   {
+      if ($this->response !== null) {
+         return $this->response;
+      }
+      $response = new Model_Core_Response();
+      $response->setController($this);
+      $this->setResponse($response);
+      return $response;
    }
 
    public function setAdapter(Model_Core_Adapter $adapter)
@@ -71,7 +95,7 @@ class Controller_Core_Action
       return $url;
    }
 
-   public function setMessage($message)
+   public function setMessage(Model_Core_Message $message)
    {
       $this->message = $message;
       return $this;
@@ -132,9 +156,9 @@ class Controller_Core_Action
       return $session;
    }
 
-   public function render()
+   public function renderLayout()
    {
-      $this->getView()->render();
+      $this->getResponse()->setBody($this->getLayout()->toHtml());
    }
 }
 ?>

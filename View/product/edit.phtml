@@ -1,10 +1,10 @@
 <?php $row = $this->getData('product');?>
 <?php $attributes = $this->getAttributes(); ?>
-<form method="POST" action="<?php echo $this->getUrl('save'); ?>">
+<form id="product" method="post">
 	<table>
 		<tr>
 			<th>Manage Product</th>
-			<th><input type="submit" value="Save"></th>
+			<th><input type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setForm('product').setMethod('POST').call()"></th>
 		</tr>
 		<tr>
 			<td>SKU Id</td>
