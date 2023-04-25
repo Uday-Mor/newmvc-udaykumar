@@ -1,7 +1,7 @@
 <?php $attributes = $this->prepareData()->getData();?>
 <div class="head_container">
 	<h2 class="salesman_heading">Manage Attributes</h2>
-	<a class="add_salesman_link" href=<?php echo $this->getUrl('add',null,null,true); ?>>ADD Attribute</a>
+	<a class="add_salesman_link" onclick="ajax.setUrl('<?php echo $this->getUrl('add',null,null,true); ?>').call()">ADD Attribute</a>
 </div>
 <div class="tabel_container">
 	<table class="table table-bordered border-primary ">
@@ -34,8 +34,8 @@
 				<th><?php echo $attribute->getStatusText(); ?></th>
 				<th><?php echo $attribute->backend_model; ?></th>
 				<th><?php echo $attribute->input_type; ?></th>
-				<td><a href=<?php echo $this->getUrl('edit',null,['attribute_id'=>$attribute->attribute_id],true); ?>>Edit</a></td>
-				<td><a href=<?php echo $this->getUrl('delete',null,['attribute_id'=>$attribute->attribute_id],true); ?>>Delete</a></td>
+				<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('edit',null,['attribute_id'=>$attribute->attribute_id],true); ?>').call()">Edit</a></td>
+				<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('delete',null,['attribute_id'=>$attribute->attribute_id],true); ?>').call()">Delete</a></td>
 				</tr>
 			<?php endforeach; ?>
 			<?php endif; ?>

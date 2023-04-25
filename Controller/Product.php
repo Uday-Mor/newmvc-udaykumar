@@ -4,12 +4,21 @@
  */
 class Controller_Product extends Controller_Core_Action
 {
+
+	public function indexAction()
+	{
+		$layout = $this->getLayout();
+		$layout->getChild('content')->addChild('index',$layout->creatBlock('Core_Layout')->setTemplate('core/index.phtml'));
+		$this->renderLayout();
+	}
+
 	public function gridAction()
 	{
 		try {
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('grid',$layout->creatBlock('Product_Grid'));
-			$layout->render();
+			$grid = $layout->creatBlock('Product_Grid');
+			$response = $grid->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
 		}
@@ -23,11 +32,11 @@ class Controller_Product extends Controller_Core_Action
 			}
 
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('grid',$layout->creatBlock('Product_Edit'));
-			$layout->render();
+			$add = $layout->creatBlock('Product_Edit');
+			$response = $add->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid');
 		}
 	}
 
@@ -43,13 +52,12 @@ class Controller_Product extends Controller_Core_Action
 			}
 
 			$layout = $this->getLayout();
-			$edit = new Block_Product_Edit();
+			$edit = $layout->creatBlock('Product_Edit');
 			$edit->setData(['product'=>$product]);
-			$layout->getChild('content')->addChild('edit',$edit);
-			$layout->render();
+			$response = $edit->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);	
 		}
 	}
 
@@ -107,10 +115,12 @@ class Controller_Product extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data saved successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Product_Grid');
+			$response = $grid->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -128,7 +138,10 @@ class Controller_Product extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data deleted successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Product_Grid');
+			$response = $grid->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage,Model_Core_Message::FAILURE);
 			$this->redirect('grid',null,[],true);

@@ -4,12 +4,20 @@
  */
 class Controller_Payment extends Controller_Core_Action
 {
+	public function indexAction()
+	{
+		$layout = $this->getLayout();
+		$layout->getChild('content')->addChild('index',$layout->creatBlock('Core_Layout')->setTemplate('payment/index.phtml'));
+		echo $layout->toHtml();
+	}
+
 	public function gridAction()
 	{
 		try {
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('grid',$layout->creatBlock('Payment_Grid'));
-			$layout->render();
+			$grid = $layout->creatBlock('Payment_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
 		}
@@ -23,11 +31,11 @@ class Controller_Payment extends Controller_Core_Action
 			}
 			
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('edit',$layout->creatBlock('Payment_Edit'));
-			$layout->render();
+			$add = $layout->creatBlock('Payment_Edit');
+			$response = $add->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid');
 		}
 	}
 
@@ -45,11 +53,10 @@ class Controller_Payment extends Controller_Core_Action
 			$layout = $this->getLayout();
 			$edit = $layout->creatBlock('Payment_Edit');
 			$edit->setData(['payment'=>$payment]);
-			$layout->getChild('content')->addChild('edit',$edit);
-			$layout->render();
+			$response = $edit->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);	
 		}
 	}
 
@@ -83,10 +90,12 @@ class Controller_Payment extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data saved successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Payment_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);			
-			$this->redirect('grid',null,[],true);
 		}
 	}
 
@@ -104,10 +113,12 @@ class Controller_Payment extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data deleted successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Payment_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid',null,[],true);
 		}
 	}
 }

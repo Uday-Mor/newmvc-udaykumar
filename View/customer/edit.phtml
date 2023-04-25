@@ -3,11 +3,11 @@ $customer = $this->getData('customer');
 $billingAddress = $this->getData('billing_address');
 $shippingAddress = $this->getData('shipping_address');
 ?>
-<form method="POST" action=<?php echo $this->getUrl('save',null,['customer_id'=>$customer->customer_id],true); ?>>
+<form id="customer" method="POST" action="">
 	<div class="head_container">
 		<h2 class="edit_heading">Customer Data</h2>
-		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
-		<input class="save_link" type="submit" value="Save">
+		<a class="cancel_link" type="button" onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,null,true); ?>').call()">CANCEL</a>
+		<input class="save_link" type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setMethod('POST').setForm('customer').call()">
 	</div>
 	<div class="tabel_container">
 		<table>

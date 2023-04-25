@@ -4,7 +4,7 @@ $address = $this->getData('address');
 <form>
 	<div class="head_container">
 		<h2 class="edit_heading">CUSTOMER ADDRESS</h2>
-		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
+		<a class="cancel_link" type="cancel"onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,null,true); ?>').call()">CANCEL</a>
 	</div>
 	<div class="tabel_container">
 		<table>

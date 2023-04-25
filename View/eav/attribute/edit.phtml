@@ -3,11 +3,11 @@ $attribute = $this->prepareData()->getData('attribute');
 $options = $this->getOptions();
 $entities = $this->getEntities();
 ?>
-<form method="POST" action="<?php echo $this->getUrl('save'); ?>">
+<form method="POST" action="" id="eav_attribute">
 	<table>
 		<tr>
 			<th>Manage Attribute</th>
-			<th><input type="submit" value="Save"></th>
+			<th><input type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setMethod('POST').setForm('eav_attribute').call()"></th>
 		</tr>
 		<tr>
 			<td>Entity Type Id</td>
@@ -102,7 +102,7 @@ function changeOption(object) {
 $('#add').click(function () {
 	var row = $('#optionInputRowTable .optionInputRow').clone();
 	$('#optionTable tbody').append(row);
-})
+});
 
 $('#optionTable').on('click', '.remove', function() {
     var parentRow = $(this).closest('tr');

@@ -30,7 +30,6 @@ class Controller_Core_Front
 		$request = $this->getRequest();
 		$controllerName = 'Controller_'.ucwords($request->getControllerName(),'_');
 		$fileName = str_replace('_','/',$controllerName).'.php'; 
-
 		require_once $fileName;
 		$controller = new $controllerName();
 		$actionName = $request->getActionName().'Action';

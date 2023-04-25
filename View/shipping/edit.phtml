@@ -1,9 +1,9 @@
 <?php $shipping = $this->prepareData()->getData('shipping');?>
-<form method="POST" action="<?php echo $this->getUrl('save'); ?>">
+<form method="POST" action="" id="shipping">
 	<table>
 		<tr>
 			<th>Manage Shipping</th>
-			<th><input type="submit" value="Save"></th>
+			<th><input type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setMethod('POST').setForm('shipping').call()"></th>
 		</tr>
 		<tr>
 			<td>Name</td>

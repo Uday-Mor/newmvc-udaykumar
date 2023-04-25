@@ -1,9 +1,9 @@
 <?php $admin = $this->prepareData()->getData('admin');?>
-<form method="POST" action="<?php echo $this->getUrl('save'); ?>">
+<form id="admin" method="POST" action="">
 	<table>
 		<tr>
 			<th>Manage Admin</th>
-			<th><input type="submit" value="Save"></th>
+			<th><input type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setMethod('POST').setForm('admin').call()"></th>
 		</tr>
 		<tr>
 			<td>Name</td>

@@ -4,12 +4,20 @@
  */
 class Controller_Category extends Controller_Core_Action
 {
+	public function indexAction()
+	{
+		$layout = $this->getLayout();
+		$layout->getChild('content')->addChild('index',$layout->creatBlock('Core_Layout')->setTemplate('category/index.phtml'));
+		echo $layout->toHtml();
+	}
+
 	public function gridAction()
 	{
 		try {
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('grid',$layout->creatBlock('Category_Grid'));
-			$layout->render();
+			$grid = $layout->creatBlock('Category_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
 		}
@@ -23,11 +31,11 @@ class Controller_Category extends Controller_Core_Action
 			}
 
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('edit',$layout->creatBlock('Category_Edit'));
-			$layout->render();
+			$add = $layout->creatBlock('Category_Edit');
+			$response = $add->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid');			
 		}
 	}
 
@@ -45,11 +53,10 @@ class Controller_Category extends Controller_Core_Action
 			$layout = $this->getLayout();
 			$edit = $layout->creatBlock('Category_Edit');
 			$edit->setData(['category'=>$category]);
-			$layout->getChild('content')->addChild('edit',$edit);
-			$layout->render();
+			$response = $edit->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid');
 		}
 	}
 
@@ -104,10 +111,12 @@ class Controller_Category extends Controller_Core_Action
 
 			$category->updatePath();
 			$this->getMessage()->addMessage('Data saved successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Category_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid');
 		}	
 	}
 
@@ -126,10 +135,12 @@ class Controller_Category extends Controller_Core_Action
 			}
 
 			$this->getMessage()->addMessage('Data deleted successfully!!!');
-			$this->redirect('grid',null,[],true);
+			$layout = $this->getLayout();
+			$grid = $layout->creatBlock('Category_Grid');
+			$response = $grid->toHtml();
+			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
-			$this->redirect('grid');
 		}
 	}
 }

@@ -2,11 +2,11 @@
 $vendor = $this->getData('vendor');
 $address = $this->getData('address');
 ?>
-<form method="POST" action=<?php echo $this->getUrl('save',null,['address_id'=>$address->address_id]); ?>>
+<form method="POST" action="" id="vendor">
 	<div class="head_container">
 		<h2 class="edit_heading">EDIT VENDOR</h2>
-		<a class="cancel_link" type="cancel" href=<?php echo $this->getUrl('grid',null,null,true); ?>>CANCEL</a>
-		<input class="save_link" type="submit" value="Save">
+		<a class="cancel_link" type="button" onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,null,true); ?>').call()">CANCEL</a>
+		<input class="save_link" type="button" value="Save" onclick="ajax.setUrl('<?php echo $this->getUrl('save'); ?>').setMethod('POST').setForm('vendor').call()">
 	</div>
 	<div class="tabel_container">
 		<table>
