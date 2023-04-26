@@ -1,0 +1,17 @@
+<?php $pager = $this->getPager(); ?>
+<table class="table table-bordered border-primary ">
+	<tr>
+		<td><a href="<?php echo $this->getUrl('index',null,['pg'=>$pager->firstPage]); ?>"><?php echo $pager->firstPage; ?></a></td>
+		<td><a href="<?php echo $this->getUrl('index',null,['pg'=>$pager->previousPage]);?>" <?php echo ($pager->nextPage == 0) ? 'style="pointer-events: none;"' : ''; ?>> <<< Previous Page</a></td>
+		<td><a href="<?php echo $this->getUrl('index',null,['pg'=>$pager->currentPage]);?>"><?php echo $pager->currentPage; ?></a></td>
+		<td><a href="<?php echo $this->getUrl('index',null,['pg'=>$pager->nextPage]);?>" <?php echo ($pager->nextPage == 0) ? 'style="pointer-events: none;"' : ''; ?>>Next Page >>> </a></td>
+		<td><a href="<?php echo $this->getUrl('index',null,['pg'=>$pager->totalPages]);?>"><?php echo $pager->totalPages; ?></a></td>
+		<!-- <td>
+			<select onchange="changeRecordPerPage(this)">
+				<option value="10">10</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+			</select>
+		</td> -->
+	</tr>
+</table>

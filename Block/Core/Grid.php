@@ -8,6 +8,7 @@ class Block_Core_Grid extends Block_Core_Templates
 	protected $actions = [];
 	protected $buttons = [];
 	protected $title = null;
+	protected $pager = null;
 
 	public function __construct()
 	{
@@ -16,6 +17,22 @@ class Block_Core_Grid extends Block_Core_Templates
 		$this->_prepareActions();
 		$this->_prepareButtons();
 		$this->setTemplate('core/grid.phtml');
+	}
+
+	public function getPager($records,$currentPage)
+	{
+		if ($this->pager) {
+			return $this->pager;
+		}
+		$pager = new Model_Core_Pager($records,$currentPage);
+		$this->setPager($pager);
+		return $pager;
+	}
+
+	public function setPager(Model_Core_Pager $pager)
+	{
+		$this->pager = $pager;
+		return $this;
 	}
 
 	public function getColumns()

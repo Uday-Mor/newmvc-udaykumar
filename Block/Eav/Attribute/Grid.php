@@ -2,7 +2,7 @@
 /**
  * 
  */
-class Block_Eav_Attribute_Grid extends Block_Core_Templates
+class Block_Eav_Attribute_Grid extends Block_Core_Grid
 {
 	public function __construct()
 	{
@@ -12,9 +12,11 @@ class Block_Eav_Attribute_Grid extends Block_Core_Templates
 
 	public function prepareData()
 	{
-		$query = 'SELECT * FROM `eav_attribute`';
+		$query = "SELECT COUNT(`attribute_id`) FROM `eav_attribute`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `eav_attribute` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
 		$attributes = Ccc::getModel('Eav_Attribute')->fetchAll($query);
-		// $this->setData(['eav_attributes'=>$attributes]);
 		return $attributes;
 	}
 }

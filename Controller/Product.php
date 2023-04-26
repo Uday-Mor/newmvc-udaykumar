@@ -16,7 +16,10 @@ class Controller_Product extends Controller_Core_Action
 	{
 		try {
 			$layout = $this->getLayout();
-			$grid = $layout->creatBlock('Product_Grid');
+			if (!($pageNumber = $this->getRequest()->getParams('pg'))) {
+				$pageNumber = 1;
+			}
+			$grid = $layout->creatBlock('Product_Grid')->setData(['pg'=>$pageNumber]);
 			$response = $grid->toHtml();
 			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {

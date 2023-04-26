@@ -12,10 +12,13 @@ class Block_Vendor_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `vendor`';
+		$query = "SELECT COUNT(`vendor_id`) FROM `vendor`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `vendor` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
 		$vendors = Ccc::getModel('Vendor')->fetchAll($query);
 		return $vendors;
-	}
+}
 
 	public function _prepareColumns()
 	{

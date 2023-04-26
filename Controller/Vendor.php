@@ -15,7 +15,10 @@ class Controller_Vendor extends Controller_Core_Action
 	{
 		try {
 			$layout = $this->getLayout();
-			$grid = $layout->creatBlock('Vendor_Grid');
+			if (!($pageNumber = $this->getRequest()->getParams('pg'))) {
+				$pageNumber = 1;
+			}
+			$grid = $layout->creatBlock('Vendor_Grid')->setData(['pg'=>$pageNumber]);
 			$response = $grid->toHtml();
 			echo json_encode(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {

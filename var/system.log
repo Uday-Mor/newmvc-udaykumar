@@ -1,0 +1,12 @@
+2023-04-26 07:23:57 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 20
+    [startLimit] => 0
+)
+\n\n

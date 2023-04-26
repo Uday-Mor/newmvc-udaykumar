@@ -14,7 +14,10 @@ class Controller_Eav_Attribute extends Controller_Core_Action
 	public function gridAction()
 	{
 		$layout = $this->getLayout();
-		$grid = $layout->creatBlock('Eav_Attribute_Grid');
+		if (!($pageNumber = $this->getRequest()->getParams('pg'))) {
+			$pageNumber = 1;
+		}
+		$grid = $layout->creatBlock('Eav_Attribute_Grid')->setData(['pg'=>$pageNumber]);
 		$response = $grid->toHtml();
 		$this->getResponse()->jsonResponse(['element'=>'content','html'=>$response]);
 	}

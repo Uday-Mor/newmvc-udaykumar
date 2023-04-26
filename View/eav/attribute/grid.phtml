@@ -1,4 +1,8 @@
 <?php $attributes = $this->prepareData()->getData();?>
+<?php if ($attributes) : ?>
+<?php $pager = $this->getPager(0,1); ?>
+<?php $this->getLayout()->creatBlock('Core_Pager')->setPager($pager)->render(); ?>
+<?php endif; ?>
 <div class="head_container">
 	<h2 class="salesman_heading">Manage Attributes</h2>
 	<a class="add_salesman_link" onclick="ajax.setUrl('<?php echo $this->getUrl('add',null,null,true); ?>').call()">ADD Attribute</a>

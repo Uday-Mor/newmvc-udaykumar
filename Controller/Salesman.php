@@ -8,7 +8,11 @@ class Controller_Salesman extends Controller_Core_Action
 	{
 		try {
 			$layout = $this->getLayout();
-			$layout->getChild('content')->addChild('grid',$layout->creatBlock('Salesman_Grid'));
+			if (!($pageNumber = $this->getRequest()->getParams('pg'))) {
+				$pageNumber = 1;
+			}
+			$grid = $layout->creatBlock('Salesman_Grid')->setData(['pg'=>$pageNumber]);
+			$layout->getChild('content')->addChild('grid',$grid);
 			$layout->render();
 		} catch (Exception $e) {
 			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
@@ -21,7 +25,6 @@ class Controller_Salesman extends Controller_Core_Action
 			if (!($salesman = Ccc::getModel('Salesman')) || !($address = Ccc::getModel('Salesman_Address'))) {
 				$this->errorAction('Request denied!!!');
 			}
-
 			$layout = $this->getLayout();
 			$layout->getChild('content')->addChild('edit',$layout->creatBlock('Salesman_Edit'));
 			$layout->render();
