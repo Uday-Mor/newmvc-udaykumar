@@ -1,6 +1,6 @@
 <?php $rows = $this->getCollection(); ?>
 <?php if ($rows) : ?>
-<?php $pager = $this->getPager(0,1); ?>
+<?php $pager = $this->getPager(0,10); ?>
 <?php $this->getLayout()->creatBlock('Core_Pager')->setPager($pager)->render(); ?>
 <?php endif; ?>
 <table class="table table-bordered border-primary ">

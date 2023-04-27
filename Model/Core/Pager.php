@@ -55,6 +55,11 @@ class Model_Core_Pager
 		return $this;
 	}
 
+	public function getRecordPerPage()
+	{
+		return $this->recordPerPage;
+	}
+
 	public function setTotalRecords($records)
 	{
 		$this->totalRecords = $records;
