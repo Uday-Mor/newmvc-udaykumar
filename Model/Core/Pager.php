@@ -13,7 +13,6 @@ class Model_Core_Pager
 	public $recordPerPage = 1;
 	public $startLimit = 1;
 
-
 	public function __construct($totalRecords,$currentPage)
 	{
 		$this->totalRecords = $totalRecords;
@@ -23,12 +22,22 @@ class Model_Core_Pager
 
 	public function calculateParameters()
 	{
-		$this->totalPages = ceil(($this->totalRecords)/($this->recordPerPage));
+		$this->totalPages = ceil($this->totalRecords/$this->recordPerPage);
+		if ($this->totalPages == 0) {
+			$this->currentPage = 0;
+			$this->firstPage = 0;
+		}
+
+		if ($this->totalPages == 1 || ($this->totalPages > 1 && $this->currentPage <= 0)) {
+			$this->currentPage = 1;
+			$this->firstPage = 0;
+		}
+
 		if ($this->currentPage > $this->totalPages) {
 			$this->currentPage = $this->totalPages;
 		}
 
-		if (($this->previousPage = ($this->currentPage)-1) == 0) {
+		if (($this->previousPage = ($this->currentPage)-1) <= 0) {
 			$this->previousPage = 0;
 		}
 		

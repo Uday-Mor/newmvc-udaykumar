@@ -14,8 +14,9 @@ class Block_Product_Grid extends Block_Core_Grid
 	{
 		$query = "SELECT COUNT(`product_id`) FROM `product`";
 		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
-		$pager = $this->getPager($records,$this->getData('pg'));
-		$query = "SELECT * FROM `product` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
+		$this->getPager($records,$this->getData('pg'));
+		$this->getPager(10,10)->setRecordPerPage($this->getData('rpp'));
+		$query = "SELECT * FROM `product` LIMIT {$this->getPager(10,10)->recordPerPage} OFFSET {$this->getPager(10,10)->startLimit};";
 		$products = Ccc::getModel('Product')->fetchAll($query);
 		return $products;
 	}
