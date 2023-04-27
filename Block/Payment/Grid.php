@@ -10,6 +10,16 @@ class Block_Payment_Grid extends Block_Core_Grid
 		$this->setTitle('Manage Payments');
 	}
 
+	public function getCollection()
+	{
+		$query = "SELECT COUNT(`payment_id`) FROM `payment`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `payment` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
+		$payments = Ccc::getModel('Payment')->fetchAll($query);
+		return $payments;
+	}
+
 	public function _prepareColumns()
 	{
 		$this->addColumn('payment_id',[
@@ -47,13 +57,6 @@ class Block_Payment_Grid extends Block_Core_Grid
 			'title'=>'Add Payment',
 			'url'=>$this->getUrl('add')
 		]);
-	}
-
-	public function getCollection()
-	{
-		$query = 'SELECT * FROM `payment`';
-		$payments = Ccc::getModel('Payment')->fetchAll($query);
-		return $payments;
 	}
 
 	public function getColumnValue($key,$row)

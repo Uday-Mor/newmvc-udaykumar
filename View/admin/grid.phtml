@@ -1,4 +1,6 @@
 <?php $admins = $this->prepareData();?>
+<?php $pager = $this->getPager(0,1); ?>
+<?php $this->getLayout()->creatBlock('Core_Pager')->setPager($pager)->render(); ?>
 <table class="table table-bordered border-primary ">
 	<tr>
 		<th colspan="5">Manage Admin</th>

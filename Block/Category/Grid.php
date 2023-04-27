@@ -12,7 +12,10 @@ class Block_Category_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `category` WHERE `parent_id` IS NOT NULL ORDER BY `path` ASC';
+		$query = "SELECT COUNT(`category_id`) FROM `category`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `category` WHERE `parent_id` IS NOT NULL ORDER BY `path` ASC LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
 		$categories = Ccc::getModel('Category')->fetchAll($query);
 		return $categories;
 	}

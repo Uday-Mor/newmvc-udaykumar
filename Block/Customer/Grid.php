@@ -12,7 +12,10 @@ class Block_Customer_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `customer`';
+		$query = "SELECT COUNT(`customer_id`) FROM `customer`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `customer` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
 		$customeres = Ccc::getModel('Customer')->fetchAll($query);
 		return $customeres;
 	}

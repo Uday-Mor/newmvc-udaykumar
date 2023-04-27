@@ -12,7 +12,11 @@ class Block_Product_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `product`';
+		$query = "SELECT COUNT(`product_id`) FROM `product`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$this->getPager($records,$this->getData('pg'));
+		$this->getPager(10,10)->setRecordPerPage($this->getData('rpp'));
+		$query = "SELECT * FROM `product` LIMIT {$this->getPager(10,10)->recordPerPage} OFFSET {$this->getPager(10,10)->startLimit};";
 		$products = Ccc::getModel('Product')->fetchAll($query);
 		return $products;
 	}

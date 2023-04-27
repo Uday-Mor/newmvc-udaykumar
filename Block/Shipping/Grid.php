@@ -12,10 +12,13 @@ class Block_Shipping_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `shipping`';
+		$query = "SELECT COUNT(`shipping_id`) FROM `shipping`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `shipping` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
 		$shippings = Ccc::getModel('Shipping')->fetchAll($query);
 		return $shippings;
-	}
+}
 
 	public function _prepareColumns()
 	{

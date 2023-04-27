@@ -12,7 +12,10 @@ class Block_Salesman_Grid extends Block_Core_Grid
 
 	public function getCollection()
 	{
-		$query = 'SELECT * FROM `salesman`';
+		$query = "SELECT COUNT(`salesman_id`) FROM `salesman`";
+		$records = Ccc::getModel('Core_Adapter')->fetchOne($query);
+		$pager = $this->getPager($records,$this->getData('pg'));
+		$query = "SELECT * FROM `salesman` LIMIT {$pager->recordPerPage} OFFSET {$pager->startLimit};";
 		$salesmen = Ccc::getModel('Salesman')->fetchAll($query);
 		return $salesmen;
 	}
@@ -74,7 +77,7 @@ class Block_Salesman_Grid extends Block_Core_Grid
 	public function _prepareButtons()
 	{
 		$this->addButton('add',[
-			'title'=>'Add Product',
+			'title'=>'Add slaesamn',
 			'url'=>$this->getUrl('add')
 		]);
 	}

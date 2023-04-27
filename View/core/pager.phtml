@@ -1,0 +1,25 @@
+<?php $pager = $this->getPager(); ?>
+<?php Ccc::log($pager); ?>
+<form method="POST" action="" id="grid-form">
+	<table class="table table-bordered border-primary ">
+		<tr>
+			<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,['pg'=>$pager->firstPage]);?>').setForm('grid-form').setMethod('POST').call()"><?php echo $pager->firstPage; ?></a></td>
+			<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,['pg'=>$pager->previousPage]);?>').setForm('grid-form').setMethod('POST').call()" > <<< Previous Page</a></td>
+			<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,['pg'=>$pager->currentPage]);?>').setForm('grid-form').setMethod('POST').call()"><?php echo $pager->currentPage; ?></a></td>
+			<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,['pg'=>$pager->nextPage]);?>').setForm('grid-form').setMethod('POST').call()" >Next Page >>> </a></td>
+			<td><a onclick="ajax.setUrl('<?php echo $this->getUrl('grid',null,['pg'=>$pager->totalPages]);?>').setForm('grid-form').setMethod('POST').call()"><?php echo $pager->totalPages; ?></a></td>
+			<td>
+				<select onchange="changeRpp(this.value)">
+					<option value="10">10</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+</form>
+<script type="text/javascript">
+function changeRpp(val) {
+	ajax.setUrl('<?php echo $this->getUrl('grid',null,['pg'=>1],true); ?>&rpp='+val).setForm('grid-form').setMethod('POST').call()
+}
+</script>
