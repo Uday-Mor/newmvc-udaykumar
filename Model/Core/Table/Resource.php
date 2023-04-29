@@ -58,16 +58,20 @@ class Model_Core_Table_Resource
 		return $results;
 	}
 
-	public function insertUpdateonDuplicate($data,$uniqueColumns)
+	public function insertUpdateOnDuplicate($data,$uniqueColumns)
 	{
-		$columns = "`" . implode("`, `", array_keys($data)) . "`";
-		$values = "'" . implode("', '", array_values($data)) . "'";
-		$query = 'INSERT INTO `'.$this->getTableName().'` ('.$columns.') VALUES ('.$values.') ON DUPLICATE KEY UPDATE';
-		$set = "";
-		foreach ($data as $column => $value) {
-		  $set .= '`'.$column.'` = "'.$value.'",';
+		$key =  implode('`,`', array_keys($data));
+		$value =  implode('\',\'', $data);
+
+		$updateValue = array_diff($data,$uniqueColumns);
+
+		foreach ($updateValue as $key1 => $value1)
+		{
+			$values [] =" `{$key1}` = '{$value1}'" ;
 		}
-		
+		$sql = "INSERT INTO `{$this->tableName}` (`{$key}`) VALUES ('{$value}') ON DUPLICATE KEY UPDATE ".implode(',', $values);
+		$result = $this->getAdapter()->query($sql);
+		return $result;
 	}
 
 	public function load($id,$column = null)

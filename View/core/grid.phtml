@@ -7,7 +7,7 @@
 	<tr>
 		<th><?php echo $this->getTitle(); ?></th>
 		<?php foreach ($this->getButtons() as $key => $button) : ?>
-		<th><a onclick="ajax.setUrl('<?php echo $this->getUrl('add',null,null,true); ?>').call()" ><?php echo $button['title']; ?></a></th>
+		<th><a onclick="ajax.setUrl('<?php echo $this->getUrl($key,null,null,true); ?>').call()" ><?php echo $button['title']; ?></a></th>
 		<?php endforeach; ?>
 	</tr>
 	<tr>

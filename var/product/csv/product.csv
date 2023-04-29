@@ -1,0 +1,3 @@
+product_id,base,thumnail,small,sku_id,cost,price,quantity,description,status,color,material,created_at,updated_at
+98,,,,"Nokia 1100",0.00,1100.00,0,"Nokia 1100",1,,,"2023-03-20 04:23:14","2023-04-25 07:43:12"
+71,20,20,35,"Nokia 1200",1200.00,1200.00,120,tbfc,1,,,"2023-03-20 04:23:14","2023-04-25 08:02:47"
