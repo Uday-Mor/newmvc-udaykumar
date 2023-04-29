@@ -801,4 +801,205 @@
     [recordPerPage] => 50
     [startLimit] => 0
 )
+\n\n2023-04-28 06:42:14 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 06:43:32 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 06:43:44 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 06:44:23 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 07:58:49 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 07:58:53 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 08:00:22 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 08:00:26 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:13:17 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:17:27 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:18:12 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:19:07 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:49:51 : Model_Core_Pager Object
+(
+    [totalRecords] => 4
+    [currentPage] => 1
+    [totalPages] => 4
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 1
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:49:53 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 11:50:06 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 12:39:03 : Model_Core_Pager Object
+(
+    [totalRecords] => 2
+    [currentPage] => 1
+    [totalPages] => 2
+    [firstPage] => 1
+    [previousPage] => 0
+    [nextPage] => 2
+    [recordPerPage] => 10
+    [startLimit] => 0
+)
+\n\n2023-04-28 12:56:07 : Model_Quote Object
+(
+    [data:protected] => Array
+        (
+            [customer_id] => 61
+        )
+
+    [resourceClass] => Quote_Resource
+    [collectionClass] => Quote_Collection
+    [resource:protected] => Model_Quote_Resource Object
+        (
+            [adapter:protected] => Model_Core_Adapter Object
+                (
+                    [serverName] => localhost
+                    [userName] => root
+                    [passWord] => 
+                    [dbName] => newmvc-udaykumar
+                )
+
+            [tableName] => quote
+            [primaryKey] => quote_id
+        )
+
+    [collection:protected] => 
+)
 \n\n
