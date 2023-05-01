@@ -43,6 +43,59 @@ class Controller_Shipping extends Controller_Core_Action
 		}
 	}
 
+	public function importAction()
+	{
+		try {
+			$layout = $this->getLayout();
+			$import = $layout->creatBlock('Core_Import');
+			$response = $import->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
+		} catch (Exception $e) {
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		}
+	}
+
+	public function importDataAction()
+	{
+		try {
+			$upload = Ccc::getModel('Core_File_Upload');
+			$upload->setPath('shipping/csv')->setExtensions(['csv'])->upload('csv');
+			$file = $upload->getFile();
+			$rows = Ccc::getModel('Core_File_Csv')->setPath($upload->getPath())->setFileName($file['name'])->get();
+			$productModel = Ccc::getModel('Shipping');
+			foreach ($rows as $row) {
+				$uniqueColumns = ['name'=>$row['name']];
+				$productModel->getResource()->insertUpdateOnDuplicate($row,$uniqueColumns);
+			}
+		} catch (Exception $e) {
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		}
+	}
+
+	public function exportAction()
+	{	
+		try {
+			$sql = "SELECT * FROM `shipping` ORDER BY `shipping_id` DESC";
+			$model = Ccc::getModel('Shipping');
+			$data = $model->getResource()->fetchAll($sql);
+			header('Content-Type: text/csv; charset=utf-8');
+			header('Content-Disposition: attachment; var/shipping/csv/shipping.csv');
+			$fp = fopen("php://output", "w");
+			$header = [];
+			foreach ($data as $row) {
+				if (!$header) {
+					$header = array_keys($row);
+					fputcsv($fp, $header);
+				}
+				fputcsv($fp, $row);
+			}
+
+			fclose($fp);
+		 } catch (Exception $e) {
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		 }
+	}
+
 	public function editAction()
 	{
 		try {

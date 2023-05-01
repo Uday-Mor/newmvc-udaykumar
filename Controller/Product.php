@@ -18,7 +18,7 @@ class Controller_Product extends Controller_Core_Action
 			$layout = $this->getLayout();
 			$pageNumber = (int) $this->getRequest()->getParams('pg',1);
 			$recordPerPage = (int) $this->getRequest()->getParams('rpp',10);
-			$grid = $layout->creatBlock('Product_Grid')->setData(['pg'=>$pageNumber,'rpp'=>$recordPerPage]);
+			$grid = $layout->creatBlock('Core_Grid')->setData(['pg'=>$pageNumber,'rpp'=>$recordPerPage]);
 			$response = $grid->toHtml();
 			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
 		} catch (Exception $e) {
@@ -54,24 +54,20 @@ class Controller_Product extends Controller_Core_Action
 		}
 	}
 
-	public function importProductAction()
+	public function importDataAction()
 	{
 		try {
-			echo "<pre>";
-
 			$upload = Ccc::getModel('Core_File_Upload');
 			$upload->setPath('product/csv')->setExtensions(['csv'])->upload('csv');
 			$file = $upload->getFile();
 			$rows = Ccc::getModel('Core_File_Csv')->setPath($upload->getPath())->setFileName($file['name'])->get();
 			$productModel = Ccc::getModel('Product');
 			foreach ($rows as $row) {
-				print_r($row);
-				var_dump($row["sku_id"]);
 				$uniqueColumns = ['sku_id'=>$row['sku_id']];
 				$productModel->getResource()->insertUpdateOnDuplicate($row,$uniqueColumns);
 			}
 		} catch (Exception $e) {
-			
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
 		}
 	}
 
@@ -94,42 +90,9 @@ class Controller_Product extends Controller_Core_Action
 			}
 
 			fclose($fp);
-
-			
 		 } catch (Exception $e) {
-		 	
-		 } 
-print_r(expression);
-
-
-
-		$fields = ['product_id','name','sku','cost','price','description','status','color','material','thumbnail','small','base','created_at','updated_at']; 
-		// echo $fields; die;
-		fputcsv($file, $fields, ',');
-
-		print_r($data[0]);
-		if($data->count() > 0){ 
-		    // while($row = $data->getData()){ 
-		    //     // $lineData = array($row['id'], $row['name'], $row['email'], $row['phone'], $row['created'], $row['status']); 
-		    //     fputcsv($file, $row, $delimiter); 
-		    // }
-		    foreach ($data->getData() as $value) {
-		        fputcsv($file, $value, ','); 
-		     } 
-		} 
-		 
-		// Move back to beginning of file 
-		fseek($file, 0); 
-		 
-		// Set headers to download file rather than displayed 
-		@header('Content-Type: text/csv'); 
-		@header('Content-Disposition: attachment; filename="' . $filename . '";'); 
-		 
-		// Output all remaining data on a file pointer 
-		fpassthru($file); 
-		 
-		// Exit from file 
-		exit();
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		 }
 	}
 
 	public function editAction()

@@ -42,6 +42,59 @@ class Controller_Payment extends Controller_Core_Action
 		}
 	}
 
+	public function importAction()
+	{
+		try {
+			$layout = $this->getLayout();
+			$import = $layout->creatBlock('Core_Import');
+			$response = $import->toHtml();
+			$this->getResponse()->jsonResponse(['html'=>$response,'element'=>'content']);
+		} catch (Exception $e) {
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		}
+	}
+
+	public function importDataAction()
+	{
+		try {
+			$upload = Ccc::getModel('Core_File_Upload');
+			$upload->setPath('payment/csv')->setExtensions(['csv'])->upload('csv');
+			$file = $upload->getFile();
+			$rows = Ccc::getModel('Core_File_Csv')->setPath($upload->getPath())->setFileName($file['name'])->get();
+			$paymentModel = Ccc::getModel('payment');
+			foreach ($rows as $row) {
+				$uniqueColumns = ['name'=>$row['name']];
+				$paymentModel->getResource()->insertUpdateOnDuplicate($row,$uniqueColumns);
+			}
+		} catch (Exception $e) {
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		}
+	}
+
+	public function exportAction()
+	{	
+		try {
+			$sql = "SELECT * FROM `payment` ORDER BY `payment_id` DESC";
+			$model = Ccc::getModel('payment');
+			$data = $model->getResource()->fetchAll($sql);
+			header('Content-Type: text/csv; charset=utf-8');
+			header('Content-Disposition: attachment; var/payment/csv/payment.csv');
+			$fp = fopen("php://output", "w");
+			$header = [];
+			foreach ($data as $row) {
+				if (!$header) {
+					$header = array_keys($row);
+					fputcsv($fp, $header);
+				}
+				fputcsv($fp, $row);
+			}
+
+			fclose($fp);
+		 } catch (Exception $e) {
+			$this->getMessage()->addMessage($e->getMessage(),Model_Core_Message::FAILURE);
+		 }
+	}
+
 	public function editAction()
 	{
 		try {
