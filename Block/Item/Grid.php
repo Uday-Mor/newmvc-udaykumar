@@ -54,6 +54,14 @@ class Block_Item_Grid extends Block_Core_Grid
 			'title'=>'Add Item',
 			'url'=>$this->getUrl('add')
 		]);
+		$this->addButton('import',[
+			'title'=>'Import',
+			'url'=>$this->getUrl('import')
+		]);
+		$this->addButton('export',[
+			'title'=>'Export',
+			'url'=>$this->getUrl('export')
+		]);
 	}
 
 	public function getColumnValue($key,$row)

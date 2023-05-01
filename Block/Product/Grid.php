@@ -84,6 +84,10 @@ class Block_Product_Grid extends Block_Core_Grid
 			'title'=>'Import',
 			'url'=>$this->getUrl('import')
 		]);
+		$this->addButton('export',[
+			'title'=>'Export',
+			'url'=>$this->getUrl('export')
+		]);
 	}
 
 	public function getColumnValue($key,$row)
